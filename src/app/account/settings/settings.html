@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Change Password</h1>
+        </div>
+        <div class="col-sm-12">
+            <form class="form" name="form" ng-submit="changePassword(form)" novalidate>
+
+                <div class="form-group">
+                    <label>Current Password</label>
+
+                    <input type="password" name="password" class="form-control" ng-model="user.oldPassword"
+                           mongoose-error/>
+
+                    <p class="text-danger" ng-show="form.password.$error.mongoose">
+                        {{ errors.other }}
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label>New Password</label>
+
+                    <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword"
+                           ng-minlength="6"
+                           required/>
+
+                    <p class="text-danger"
+                       ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">
+                        密码需要至少六位
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>确认密码</label>
+
+                    <input type="password" name="confirmPassword" class="form-control" ng-model="user.confirmPassword"
+                           ng-minlength="6"
+                           required/>
+
+                    <p class="text-danger"
+                       ng-show="(form.newPassword.$viewValue && form.confirmPassword.$viewValue && form.newPassword.$viewValue!=form.confirmPassword.$viewValue)">
+                        确认密码不一致!
+                    </p>
+
+                    <p class="text-danger"
+                       ng-show="(form.newPassword.$viewValue==form.password.$viewValue && (form.newPassword.$dirty || submitted) )">
+                        **新密码必须和旧密码不同!
+                    </p>
+                </div>
+                <p class="text-danger"> {{ message }} </p>
+                <button class="btn btn-lg btn-primary" type="submit"
+                        data-ng-disabled="form.newPassword.$viewValue!=form.confirmPassword.$viewValue || form.newPassword.$viewValue==form.password.$viewValue">
+                    Save changes
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

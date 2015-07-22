@@ -1,0 +1,17 @@
+<div>
+    <ul class="nav nav-list">
+
+        <li>
+            <div class="glyphicon glyphicon-search">
+                <input type="text" ng-model="search" placeholder="请输入内容搜索"/>
+            </div>
+        </li>
+        <li ng-repeat="comment in comments |filter:search" ui-sref-active="active">
+            <a ng-click="selectComment(comment)">
+                <div>{{comment.createDate}}</div>
+                <div>{{comment.topic}}</div>
+
+            </a>
+        </li>
+    </ul>
+</div>

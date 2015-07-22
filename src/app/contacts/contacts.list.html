@@ -1,0 +1,11 @@
+<!--主要区域显示-->
+<h1>主要面板</h1>
+<h2>所有联系人</h2>
+<h6>contacts.list.html</h6>
+<ul>
+    <li ng-repeat="contact in contacts">
+        <!--重画当前层的ui-view-->
+        <a ui-sref="contacts.detail({contactId:contact.id})">
+          {{contact.name}} - 点击激活contacts.details页面-效果:把该ui-sref激活的模板替入其父</a>
+    </li>
+</ul>

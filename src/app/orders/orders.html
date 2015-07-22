@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-3">
+        <h1>订单导航</h1>
+        <div class="well well-sm">
+
+            <ul class="nav nav-list">
+                <!--<li ng-class="{ active: $state.includes('orders.list') }"><a ui-sref="orders.list">查看所有订单</a></li>-->
+
+                <li>
+                    <select class="form-control" ng-options="state||'全部' for state in orderStates" ng-model="selectedState"></select>
+                </li>
+
+                <li style="padding: 10px">
+                    <span>查看关注订单-显示</span>
+                    <span >
+                        <input class="short-50" type="number" ng-model="limitTo" />
+                    </span>
+                </li>
+                <li ng-if="order.favorite" ng-repeat="order in orders |limitTo:limitTo" ui-sref-active="active">
+                    <a ng-click="selectOrder(order)">
+                        {{order.userId}}
+                        <span ng-repeat="item in order.items">
+                            <img ng-src="{{item.pic}}" alt="图片" style="width:40px;height: 40px"/>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <div ui-view="menuTip" class="slide"></div>
+        </div>
+    </div>
+    <div ui-view class="col-md-9"></div>
+</div>
+<div>
+    订单数据预览--具体功能待开发
+    <pre>
+        {{orderSelected|json}}
+    </pre>
+
+</div>

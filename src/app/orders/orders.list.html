@@ -1,0 +1,59 @@
+<h1>订单列表</h1>
+<div class="glyphicon glyphicon-search pull-right">
+    <input type="text" ng-model="search" placeholder="请输入内容搜索"/>
+</div>
+<div>
+    <table class="table table-stripped">
+        <thead>
+        <tr>
+            <th width="10px"></th>
+            <th>订单号</th>
+            <th>图片</th>
+            <th>总价</th>
+            <th>状态</th>
+            <th width="100px"></th>
+        </tr>
+        </thead>
+        <tbody ng-repeat="order in orders|filter:selectedState | filter:{ orderNo:search,total:search}">
+        <tr ng-class="{'alert-success':orderSelected.orderNo==order.orderNo}">
+            <td>
+                <span ng-if="order.favorite" class="glyphicon gly glyphicon-star text-danger"></span>
+            </td>
+            <td>
+                <a ng-click="selectOrder(order)">{{order.orderNo}}</a>
+
+            </td>
+            <td>
+               <span ng-repeat="item in order.items">
+                  <img ng-src="{{item.pic}}" alt="图片" style="width:40px;height: 40px"/>
+               </span>
+            </td>
+            <td>
+                {{order.total|currency:'#'}}
+            </td>
+            <td>
+                {{order.state}}
+            </td>
+            <td>
+                <a ng-if="order.delivery" ng-click="viewDelivery(order.orderNo)">查看物流</a>
+            </td>
+        </tr>
+        <tr ng-if="deliverys[order.orderNo]">
+            <td colspan="12">
+                <div class="row text-warning" ng-repeat="item in order.delivery.history">
+                     <span class="col-md-3 col-md-offset-1" >
+                     {{item[1]}}
+                    </span>
+                      <span class="col-md-6" >
+                     {{item[0]}}
+                    </span>
+                </div>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+

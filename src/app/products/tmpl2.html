@@ -1,0 +1,63 @@
+<div class="container">
+  <h1>流量类商品列表({{products.length}})</h1>
+  <button class="btn btn-primary" ng-click="showForm(true)">
+    <i class="glyphicon glyphicon-plus"></i>增加
+  </button>
+
+  <table class="table table-strip">
+    <tr>
+      <th>id</th>
+      <th>类型</th>
+      <th>名称</th>
+      <th>价格</th>
+      <th>图片</th>
+      <th></th>
+    </tr>
+
+    <tr ng-if="states.newForm">
+      <!--<td><select ng-options="type.text for type in types" ng-model="newItem.type">-->
+      <!--<option value="">请选择</option>-->
+      <!--</select></td>-->
+      <td><input type="text" ng-model="newItem.name"/></td>
+      <td><input type="text" ng-model="newItem.price"/></td>
+      <td>
+        <div class="alert alert-success">
+          <div ngf-select
+               class="btn btn-primary"
+               ngf-multiple="true"
+               ngf-accept="'image/*'"
+               ng-model="files"
+               ngf-keep-distinct="true"
+               ngf-drop
+            >添加文件/或者拖放在这里
+          </div>
+          <button class="btn btn-primary" ng-click="upload(files)">上传</button>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-2" ng-repeat="file in files">
+            <img ngf-src="file" ngf-default-src="'/thumb.jpg'" ngf-accept="'image/*'" style="max-height: 200px;max-width: 200px;">
+          </div>
+        </div>
+
+      </td>
+      <td>
+        <button class="btn" data-ng-disabled="!newItem.name"
+                ng-class="{'btn-primary':newItem.name,'btn-default':!newItem.name}">
+          <span class="glyphicon glyphicon-plus" ng-click="addProduct(newItem)"></span>增加
+        </button>
+        <button ng-click="showForm(false)">取消</button>
+      </td>
+    </tr>
+    <tr ng-repeat="product in products">
+      <td>{{product.productId}}</td>
+      <td>{{product.type}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.price}}</td>
+      <td>
+        <img ng-src="{{product.pic}}" alt="图片" style="width:50px;height: 50px"/>
+      </td>
+    </tr>
+
+
+  </table>
+</div>

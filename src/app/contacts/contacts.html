@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-3">
+    <h1>导航面板-contacts.html</h1>
+    <div class="well well-sm">
+      <ul class="nav nav-list">
+        <li ng-class="{ active: $state.includes('contacts.list') }">
+          <a ui-sref="contacts.list">所有联系人</a>
+        </li>
+        <li class="nav-divider"></li>
+        <li class="nav-header"><div class="container">重要联系人</div></li>
+        <li class="nav-divider"></li>
+        <li ng-repeat="contact in contacts | limitTo:2" ui-sref-active="active">
+          <a ui-sref="contacts.detail({contactId:contact.id})">{{contact.name}}</a>
+        </li>
+      </ul>
+      <hr>
+      <div ui-view="menuTip" class="slide"></div>
+    </div>
+  </div>
+  <div ui-view class="col-md-9"></div>
+  <hr/>
+</div>
