@@ -1,35 +1,36 @@
-<div class="container">
-  <h1>虚拟商品列表({{products.length}})</h1>
-
-  <table class="table table-strip">
-    <tr>
-      <th>id</th>
-      <th>类型</th>
-      <th>名称</th>
-      <th>价格</th>
-      <th>图片</th>
-      <th></th>
-    </tr>
-
-
-    <tr ng-repeat="product in products">
-      <td>{{product.productId}}</td>
-      <td>{{product.type}}</td>
-      <td>{{product.name}}</td>
-      <td>{{product.price}}</td>
-      <td>
-        <img ng-src="{{product.pic}}" alt="图片" style="width:50px;height: 50px"/>
-      </td>
-      <td><span class="btn btn-primary" ui-sref="products.single({prodId:product.id})">编辑</span></td>
-    </tr>
-  </table>
-
-  <div>
-    <div>
+<ui-view>
+  <!--当前状态products.template,如果此状态视图中包含ui-view,那么由子视图填充,如果非子状态激活,而是自我激活(左侧模板导航点击后,那么右侧)默认载入内容,-->
+  <!--换句话说,当前模板子状态激活,那么子状态会把自己的携带的模板填入父锚(hook,即本页的ui-view)-->
+  <div class="container">
+    <h1>虚拟商品列表({{products.length}})
       <button class="btn btn-primary">
         <i class="glyphicon glyphicon-plus"></i>增加
       </button>
-    </div>
-  </div>
+    </h1>
 
-</div>
+    <table class="table table-strip">
+      <tr>
+        <th>id</th>
+        <th>类型</th>
+        <th>名称</th>
+        <th>价格</th>
+        <th>图片</th>
+        <th></th>
+      </tr>
+
+
+      <tr ng-repeat="product in products">
+        <td>{{product.productId}}</td>
+        <td>{{product.type}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <td>
+          <img ng-src="{{product.pic}}" alt="图片" style="width:50px;height: 50px"/>
+        </td>
+        <td><span class="btn btn-primary" ui-sref="products.template.single({prodId:product.id})">修改</span></td>
+      </tr>
+    </table>
+
+
+  </div>
+</ui-view>

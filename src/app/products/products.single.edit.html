@@ -2,11 +2,11 @@
   <div class="form-group">
     {{singleProduct}}{{products|json}}{{$stateParams}}
     <h1>编辑</h1>
-    <lable>名称</lable>
+    <label>名称</label>
     <input type="text" class="form-control" placeholder="名称" ng-model="singleProduct.name"/>
   </div>
   <div class="form-group">
-    <lable>名称</lable>
+    <label>名称</label>
     <input type="text" class="form-control" placeholder="价格" ng-model="singleProduct.price"/>
   </div>
 
@@ -29,6 +29,15 @@
              style="max-height: 200px;max-width: 200px;">
       </div>
     </div>
+
+    <div class="alert alert danger" style="position: relative;padding:0">
+      <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel" style="z-index: 1000">
+      </textarea>
+      <div>
+        <button style="position:absolute;top:0;right:0;width: 100px">上传图片</button>
+      </div>
+    </div>
+
   </div>
 
   <button ng-click="done()">保存</button>

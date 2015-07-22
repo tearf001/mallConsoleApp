@@ -1,12 +1,17 @@
 <div class="container">
   <div class="form-group">
-    {{singleProduct}}{{products|json}}{{$stateParams}}
+    <div class="alert alert warning">
+      {{singleProduct}}
+      <hr/>
+      {{products|json}}{{$stateParams}}
+    </div>
+
     <h1>不可编辑</h1>
-    <lable>名称</lable>
+    <label>名称</label>
     <input type="text" class="form-control" placeholder="名称" ng-model="singleProduct.name"/>
   </div>
   <div class="form-group">
-    <lable>名称</lable>
+    <label>名称</label>
     <input type="text" class="form-control" placeholder="价格" ng-model="singleProduct.price"/>
   </div>
 

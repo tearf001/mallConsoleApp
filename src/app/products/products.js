@@ -21,25 +21,34 @@
           })
           .state('products.template', { //特定类型下清单
             url: '/tmpl/{tmplId:[0-9]+}',
+            resolve:{
+              //每次进入前重新加载
+              tmplProducts: function (utils,productsService,$stateParams) {
+                return productsService.getProductsByType($stateParams.tmplId).then(function (data) {
+                    //alert(JSON.stringify(data));
+                    return data;
+                  }, function (err) {
+                    return err;
+                });
+              }
+            },
             views: {
               '': {
                 templateUrl: function ($stateParams) {
-                  var s = 'app/products/tmpl' + $stateParams.tmplId + '.html';
-                  return s;
+                  return 'app/products/tmpl' + $stateParams.tmplId + '.html';
                 },
                 controllerProvider: function ($stateParams) {
-                  var ctrlName = 'productsType' + $stateParams.tmplId + "Controller";
-                  return ctrlName;
+                  return 'productsType'  + "Controller";//+ $stateParams.tmplId ,如果需要多个控制器,那么引入注释部分
                 }}
             }
           })
-          .state('products.single', { //单个商品
-            url: '/sgl/{prodId:[0-9]+}',
-            templateUrl: 'app/products/products.single.html',
-            controller: ['$scope', '$stateParams', '$state', 'utils','$log','$history',
-              function (  $scope,   $stateParams,   $state,   utils,$log, $history) {
-                $scope.singleProduct = utils.findById($scope.products, $stateParams.prodId);
-                $log.debug('--singleProduct--',$scope.singleProduct);
+          .state('products.template.single', { //单个商品
+            url: '/{prodId:[0-9]+}',
+            templateUrl: 'app/products/products.single.html',                         //tmplProducts 由父状态继承
+            controller: ['$scope', '$stateParams', '$state', 'utils','$log','$history','tmplProducts',
+              function (  $scope,   $stateParams,   $state,  utils,$log, $history,tmplProducts) {
+                $scope.singleProduct = utils.findById(tmplProducts,$stateParams.prodId);
+                $log.debug('--singleProduct@products.single--',$scope.singleProduct,'--tmplProducts@detect--',tmplProducts);
 
                 $scope.$stateParams = $stateParams;
                 $scope.back = function () {
@@ -50,7 +59,7 @@
                 };
               }]
           })
-          .state('products.single.edit', { //单个商品编辑
+          .state('products.template.single.edit', { //单个商品编辑
             views: {
               // This is targeting the unnamed view within the 'contacts.detail' state
               // essentially swapping out the template that 'contacts.detail.item' had
@@ -60,8 +69,19 @@
                 controller: ['$scope', '$stateParams', '$state',
                   function ($scope, $stateParams, $state) {
                     $scope.done = function () {
+                      console.log('--singleProduct@products.single.edit--$stateParams:',$stateParams);
                       // Go back up. '^' means up one. '^.^' would be up twice, to the grandparent.
-                      $state.go('^.^.template(tmplId:'+$scope.singleProduct.id+')', $stateParams);
+                      $state.go('^.^',$stateParams);
+                    };
+                    $scope.tinymceOptions = {
+                      onChange: function(e) {
+                        // put logic here for keypress and cut/paste changes
+                      },
+                      inline: false,
+                      plugins : 'advlist autolink link image lists charmap preview',
+                      skin: 'lightgray',
+                      theme : 'modern',
+                      lang:'zh_CN'
                     };
                   }]
               }
@@ -69,95 +89,20 @@
           });
       }
     ]
-  ).controller('productsCommonCtrl', ['$scope', '$state', '$http', '$timeout', 'Upload', 'productTypes', 'productsService',
+  )
+    .controller('productsCommonCtrl', ['$scope', '$state', '$http', '$timeout', 'Upload', 'productTypes', 'productsService',
       function ($scope, $state, $http, $timeout, Upload, productTypes, productsService) {
-        var self = $scope;// this;
-        self.products = [];
-        productsService.getProductsByType('').then(function (data) {
-          self.products = data;
+        productsService.getProductsByType('').then(function (data) { //每次进入都重新加载
+          $scope.products = data;
         });
-        self.newItem = {};
-        self.states = {newForm: false, isAdding: false};
-        self.types = productTypes;
-        self.showForm = function (sf) {
-          self.states.newForm = sf;
-        };
-        self.addProduct = function (prod) {
-          self.states.isAdding = true;
-          //$http.post(prod).then...
-          $timeout( //模拟HTTP请求
-            self.products.push(prod)
-            , 100)
-            //动态效果消失
-            .finally(function () {
-              self.states.isAdding = false;
-              self.newItem = {};
-            });
-        };
-        self.files = [];
-        self.upload = uploadProductPicFunc(Upload);
+        $scope.types = productTypes;
       }])
-    .controller('productsType1Controller', ['$scope', '$state', '$http', '$timeout', 'Upload', 'productsService',
-      function ($scope, $state, $http, $timeout, Upload, productsService) {
+    //tmplProducts ,加载时 resolve获得
+    .controller('productsTypeController', ['$scope', '$state','$stateParams', '$http', '$timeout', 'Upload', 'tmplProducts',
+      function ($scope, $state,$stateParams, $http, $timeout, Upload, tmplProducts) {
+        console.log('--tmplProducts@productsTypeController:',tmplProducts);
         var self = $scope;//this;
-        self.products = [];
-        productsService.getProductsByType(1).then(function (data) {
-          self.products = data;
-        });
-        self.newItem = {};
-        self.states = {newForm: false, isAdding: false};
-        self.showForm = function (sf) {
-          self.states.newForm = sf;
-        };
-        self.addProduct = function (prod) {
-          self.states.isAdding = true;
-          //$http.post(prod).then...
-          $timeout( //模拟HTTP请求
-            self.products.push(prod)
-            , 100)
-            //动态效果消失
-            .finally(function () {
-              self.states.isAdding = false;
-              self.newItem = {};
-            });
-        };
-        self.files = [];
-        self.upload = uploadProductPicFunc(Upload);
-      }])
-    .controller('productsType2Controller', ['$scope', '$state', '$http', '$timeout', 'Upload', 'productsService',
-      function ($scope, $state, $http, $timeout, Upload, productsService) {
-        var self = $scope;
-        self.products = [];
-        productsService.getProductsByType(2).then(function (data) {
-          self.products = data;
-        });
-        self.newItem = {};
-        self.states = {newForm: false, isAdding: false};
-        self.showForm = function (sf) {
-          self.states.newForm = sf;
-        };
-        self.addProduct = function (prod) {
-          self.states.isAdding = true;
-          //$http.post(prod).then...
-          $timeout( //模拟HTTP请求
-            self.products.push(prod)
-            , 100)
-            //动态效果消失
-            .finally(function () {
-              self.states.isAdding = false;
-              self.newItem = {};
-            });
-        };
-        self.files = [];
-        self.upload = uploadProductPicFunc(Upload);
-      }])
-    .controller('productsType3Controller', ['$scope', '$state', '$http', '$timeout', 'Upload', 'productsService',
-      function ($scope, $state, $http, $timeout, Upload, productsService) {
-        var self = $scope;
-        self.products = [];
-        productsService.getProductsByType(3).then(function (data) {
-          self.products = data;
-        });
+        self.products = tmplProducts;
         self.newItem = {};
         self.states = {newForm: false, isAdding: false};
         self.showForm = function (sf) {
