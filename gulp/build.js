@@ -5,7 +5,7 @@ var gulp = require('gulp');
 var conf = require('./conf');
 
 var $ = require('gulp-load-plugins')({
-  pattern: ['gulp-*', 'home-bower-files', 'uglify-save-license', 'del']
+  pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
 
 gulp.task('partials', function () {
