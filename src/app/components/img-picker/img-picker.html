@@ -1,0 +1,52 @@
+<div class="modal-body">
+  <h1>图片上传</h1>
+  <button class="btn btn-primary pull-right" ng-click="imgPickerCtx.upload(imgPickerCtx.files)">上传</button>
+
+  <div ngf-select
+       class="alert alert-success"
+       ngf-multiple="true"
+       ngf-accept="'image/*'"
+       ng-model="imgPickerCtx.files"
+       ngf-keep-distinct="true"
+       ngf-drop
+       style="min-height:200px"
+    >
+    <span class="btn btn-primary">添加文件/或者拖放在这里</span>
+    <!--图片预览-->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="col-md-2 col-xs-6" ng-repeat="file in imgPickerCtx.files | sortByPseudoListTreeId:this">
+            <div>
+              <img ngf-src="file" ngf-accept="'image/*'" style="width:200px;padding: 15px">
+              <center style="width:200px"><span ng-bind="file.name"></span></center>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!--进度条-->
+  <progressbar value="imgPickerCtx.progressPercentage"
+               ng-if="imgPickerCtx.progressPercentage>=0 && imgPickerCtx.progressPercentage<1">
+        <span style="color:black; white-space:nowrap;">
+        {{imgPickerCtx.progressPercentage}}</span></progressbar>
+
+  <!--图片排序-->
+
+  <div class="col-sm-12">
+    <h3>图片排序</h3>
+    <pseudo-list-tree ng-model="imgPickerCtx.fileOrder"></pseudo-list-tree>
+  </div>
+
+</div>
+
+
+<div class="modal-footer">
+  <div class="pull-right">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</div>
+

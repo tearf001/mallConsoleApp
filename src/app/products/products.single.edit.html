@@ -22,6 +22,11 @@
         >添加文件/或者拖放在这里
       </div>
       <button class="btn btn-primary" ng-click="prods.upload(prods.files)">上传</button>
+      <!--进度条-->
+      <progressbar value="progressPercentage"
+                   ng-if="progressPercentage>=0 && progressPercentage<1">
+        <span style="color:black; white-space:nowrap;">
+        {{progressPercentage}}</span></progressbar>
     </div>
     <div class="col-md-12">
       <div class="col-md-2" ng-repeat="file in prods.files">
@@ -34,7 +39,7 @@
       <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel" style="z-index: 1000">
       </textarea>
       <div>
-        <button style="position:absolute;top:0;right:0;width: 100px">上传图片</button>
+        <button style="position:absolute;top:0;right:0;width: 100px" ng-click="openImgPicker()">上传图片</button>
       </div>
     </div>
 

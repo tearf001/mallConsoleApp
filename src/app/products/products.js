@@ -66,8 +66,8 @@
               // inserted with this state's template.
               '@products': {
                 templateUrl: 'app/products/products.single.edit.html',
-                controller: ['$scope', '$stateParams', '$state',
-                  function ($scope, $stateParams, $state) {
+                controller: ['$scope', '$stateParams', '$state','$modal',
+                  function ($scope, $stateParams, $state,$modal) {
                     $scope.done = function () {
                       console.log('--singleProduct@products.single.edit--$stateParams:',$stateParams);
                       // Go back up. '^' means up one. '^.^' would be up twice, to the grandparent.
@@ -83,6 +83,24 @@
                       theme : 'modern',
                       lang:'zh_CN'
                     };
+                    $scope.pickBack = undefined;
+                    $scope.openImgPicker = function () {
+                      var modalInstance = $modal.open({
+                        templateUrl: 'app/components/img-picker/img-picker.html',
+                        controller: 'imgPickerModalInsCtrl',
+                        size: 'lg',
+                        resolve: {
+                          inData: function () {
+                            return "Hello";
+                          }
+                        }
+                      });
+                      modalInstance.result.then(function (pickBack) {
+                        $scope.pickBack = pickBack;
+                      }, function () {
+                        //$log.info('Modal dismissed at: ' + new Date());
+                      });
+                    }
                   }]
               }
             }
@@ -98,8 +116,8 @@
         $scope.types = productTypes;
       }])
     //tmplProducts ,加载时 resolve获得
-    .controller('productsTypeController', ['$scope', '$state','$stateParams', '$http', '$timeout', 'Upload', 'tmplProducts',
-      function ($scope, $state,$stateParams, $http, $timeout, Upload, tmplProducts) {
+    .controller('productsTypeController', ['$scope', '$state','$stateParams', '$http', '$timeout', 'Upload','utils', 'tmplProducts',
+      function ($scope, $state,$stateParams, $http, $timeout, Upload,utils, tmplProducts) {
         console.log('--tmplProducts@productsTypeController:',tmplProducts);
         var self = $scope;//this;
         self.products = tmplProducts;
@@ -121,30 +139,9 @@
             });
         };
         self.files = [];
-        self.upload = uploadProductPicFunc(Upload);
+        self.upload = utils.uploadProductPicFunc(Upload,self);
       }]);
 
-  var url = "http://localhost:7245/api/fileUp";
-  var token_value = 'Auud7Gv4MNiuoodyUbucRHCD2wMYYoy1Npq3JipXBd4bumEK7IsnIMEvz8qFj1jT06ovxHnBowHE6brVy2diSOYUCr7-OL_Z-ONWymj2HJmBi69JdfnVMAz1U40WnAew1FCSLy8DUkMN9rJ07qsBpGQe4j9gCzBGCeNiuF9Al5AUAFaTpvq6dfGKtWuloJPtJXXvXaRQ0-_jUeYO8VAQKsKchQjcvyol_4nWzDaBl_zcP0MCU_bb-UQOeDDBaLd9-zDOrLGiMSjxDNajZ-6cZQ';
 
-  function uploadProductPicFunc(Upload) {
-    return function uploadProductPics(files) {
-      Upload.upload({
-        url: url, // upload.php script, node.js route, or servlet url
-        file: files,  // single file or an array of files (array is for html5 only)
-        method: 'POST',//
-        params: {},
-        headers: {'client_id': 'ngAuthApp', 'Authorization': 'bearer ' + token_value}, // only for html5
-        data: {},
-        withCredentials: true,
-        transformRequest: angular.identity
-        //其他的angular/$http属性 and all other angular $http() options could be used here.
-      }).success(function (data) {
-        console.log('---uploaded ...', data);
-      }).error(function (err) {
-        console.log('---upload failed ...', err);
-      });
-    };
-  }
 
 })();
