@@ -5,6 +5,7 @@
     "angular-animate": "~1.4.0",
     "angular-touch": "~1.4.0",
     "angular-sanitize": "~1.4.0",
+    "jquery": "~1.11.3",
     "restangular": "~1.5.1",
     "angular-ui-router": "~0.2.15",
     "bootstrap": "~3.3.4",
@@ -16,13 +17,15 @@
     "angular": "~1.4.0",
     "ngstorage": "~0.3.7",
     "ng-file-upload": "~5.0.9",
-    "angular-ui-tinymce": "~0.0.9",
-    "angular-ui-tree": "~2.6"
+    "angular-ui-tinymce": "latest",
+    "angular-ui-tree": "~2.6",
+    "angular-ui-sortable": "~0.13.4"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.0"
   },
   "resolutions": {
+    "jquery": "~1.11.3",
     "angular": "~1.4.0"
   }
 }

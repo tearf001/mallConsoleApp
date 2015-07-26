@@ -1,12 +1,21 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12" ng-repeat="prod in products">
-      <div class="col-md-2">{{prod.id}}</div>
-      <div class="col-md-2">{{prod.name}}</div>
-      <div class="col-md-2"></div>
-      <div class="col-md-2"></div>
-      <div class="col-md-2"></div>
-      <div class="col-md-2"></div>
-    </div>
-  </div>
+  <table class="table table-bordered">
+    <tr>
+      <th>id</th>
+      <th>名称</th>
+      <th>价格</th>
+      <th>图片</th>
+    </tr>
+    <tr ng-repeat="prod in products">
+
+      <td class="col-md-2">{{prod.id}}</td>
+      <td class="col-md-2">{{prod.name}}</td>
+      <td class="col-md-2">{{prod.price}}</td>
+      <td class="col-md-6">
+        <span ng-repeat="img in prod.orderImages">
+          <img ng-src="{{img}}" alt=""/>
+        </span>
+      </td>
+    </tr>
+  </table>
 </div>

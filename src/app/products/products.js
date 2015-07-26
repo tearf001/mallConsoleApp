@@ -45,9 +45,12 @@
           .state('products.template.single', { //单个商品
             url: '/{prodId:[0-9]+}',
             templateUrl: 'app/products/products.single.html',                         //tmplProducts 由父状态继承
-            controller: ['$scope', '$stateParams', '$state', 'utils','$log','$history','tmplProducts',
-              function (  $scope,   $stateParams,   $state,  utils,$log, $history,tmplProducts) {
-                $scope.singleProduct = utils.findById(tmplProducts,$stateParams.prodId);
+            controller: ['$scope', '$stateParams', '$state', 'utils', '$log', '$history', 'Restangular', 'tmplProducts',
+              function ($scope, $stateParams, $state, utils, $log, $history, Restangular, tmplProducts) {
+                //从数据库中加载,或者从客户端缓冲中加载
+                $scope.singleProduct = utils.findById(tmplProducts, $stateParams.prodId);//从客户端缓冲中取数
+                //$scope.singleProduct = Restangular.one('products',$stateParams.prodId).$object;//从服务端取数
+
                 $log.debug('--singleProduct@products.single--',$scope.singleProduct,'--tmplProducts@detect--',tmplProducts);
 
                 $scope.$stateParams = $stateParams;
@@ -64,15 +67,35 @@
               // This is targeting the unnamed view within the 'contacts.detail' state
               // essentially swapping out the template that 'contacts.detail.item' had
               // inserted with this state's template.
-              '@products': {
+              '@products': { //'@products' 时占用母页ui-view区域; 而 @products.template.single当前页
                 templateUrl: 'app/products/products.single.edit.html',
-                controller: ['$scope', '$stateParams', '$state','$modal',
-                  function ($scope, $stateParams, $state,$modal) {
+                resolve: {
+                  //每次进入前重新加载
+                  singleProduct: function (utils, productsService, $stateParams) {
+                    return productsService.getProductsByType($stateParams.tmplId).then(function (data) {
+                      var find = _.find(data, function (e) {
+                        return String(e.id) === String($stateParams.prodId);
+                      });
+                      return find;
+                    }, function (err) {
+                      return err;
+                    });
+                  }
+                },
+                controller: ['$scope', '$log', '$stateParams', '$state', 'utils', '$modal', 'singleProduct',
+                  function ($scope, $log, $stateParams, $state, utils, $modal, singleProduct) {
+                    $log.info(singleProduct);
+                    //编辑时,需重新从数据库中加载最新数据
+                    $scope.singleProduct = angular.extend(singleProduct, {_files: []});//utils.findById(tmplProducts,$stateParams.prodId);//从客户端缓冲中取数
                     $scope.done = function () {
                       console.log('--singleProduct@products.single.edit--$stateParams:',$stateParams);
                       // Go back up. '^' means up one. '^.^' would be up twice, to the grandparent.
                       $state.go('^.^',$stateParams);
                     };
+                    //商品图片url序列
+                    //$scope.orderImages=$scope.singleProduct.orderImages;
+                    //新加的图片
+                    //$scope.singleProduct.files = [];
                     $scope.tinymceOptions = {
                       onChange: function(e) {
                         // put logic here for keypress and cut/paste changes
@@ -86,6 +109,7 @@
                     $scope.pickBack = undefined;
                     $scope.openImgPicker = function () {
                       var modalInstance = $modal.open({
+                        animation: false,
                         templateUrl: 'app/components/img-picker/img-picker.html',
                         controller: 'imgPickerModalInsCtrl',
                         size: 'lg',
@@ -97,8 +121,9 @@
                       });
                       modalInstance.result.then(function (pickBack) {
                         $scope.pickBack = pickBack;
-                      }, function () {
-                        //$log.info('Modal dismissed at: ' + new Date());
+                        $log.info('Modal return with: ', pickBack);
+                      }, function (e) {
+                        $log.info('Modal dismissed at: ', e);
                       });
                     }
                   }]
@@ -140,6 +165,9 @@
         };
         self.files = [];
         self.upload = utils.uploadProductPicFunc(Upload,self);
+        self.goExplicit = function (ps) {
+          $state.go('products.template.single', ps);
+        }
       }]);
 
 

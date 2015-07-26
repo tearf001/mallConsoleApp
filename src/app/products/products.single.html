@@ -2,39 +2,32 @@
 <div class="container">
   <div class="form-group">
     <div class="alert alert warning">
-      {{singleProduct}}
-      <hr/>
-      {{products|json}}{{$stateParams}}
+      视图数据:
+      {{singleProduct|json}}
     </div>
 
-    <h1>不可编辑</h1>
-    <label>名称</label>
+    <h1>商品详情</h1>
+    <label>名称:</label>
     <input type="text" class="form-control" placeholder="名称" ng-model="singleProduct.name"/>
   </div>
   <div class="form-group">
-    <label>名称</label>
+    <label>名称:</label>
     <input type="text" class="form-control" placeholder="价格" ng-model="singleProduct.price"/>
   </div>
 
+
   <div class="form-group">
-    <div class="alert alert-success">
-      <div ngf-select
-           class="btn btn-primary"
-           ngf-multiple="true"
-           ngf-accept="'image/*'"
-           ng-model="prods.files"
-           ngf-keep-distinct="true"
-           ngf-drop
-        >添加文件/或者拖放在这里
-      </div>
-      <button class="btn btn-primary" ng-click="prods.upload(prods.files)">上传</button>
-    </div>
-    <div class="col-md-12">
-      <div class="col-md-2" ng-repeat="file in prods.files">
-        <img ngf-src="file" ngf-default-src="'/thumb.jpg'" ngf-accept="'image/*'"
-             style="max-height: 200px;max-width: 200px;">
-      </div>
-    </div>
+    <label>图片:</label>
+    <span ng-repeat="pic in singleProduct.orderImages">
+            <img ng-src="{{pic}}" alt="图片" style="width:50px;height: 50px"/>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label>详情:</label>
+    <pre class="code">
+      电信流量包,速来购!
+    </pre>
   </div>
 
   <button ng-click="back()">返回</button>

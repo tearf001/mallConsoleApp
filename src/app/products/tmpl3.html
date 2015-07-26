@@ -8,7 +8,7 @@
       </button>
     </h1>
 
-    <table class="table table-strip">
+    <table class="table table-striped">
       <tr>
         <th>id</th>
         <th>类型</th>
@@ -25,9 +25,12 @@
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
         <td>
-          <img ng-src="{{product.pic}}" alt="图片" style="width:50px;height: 50px"/>
+          <span ng-repeat="pic in product.orderImages">
+            <img ng-src="{{pic}}" alt="图片" style="width:50px;height: 50px"/>
+          </span>
         </td>
-        <td><span class="btn btn-primary" ui-sref="products.template.single({prodId:product.id})">修改</span></td>
+        <!--<td><span class="btn btn-primary" ui-sref="products.template.single({prodId:product.id})">详情</span></td>-->
+        <td><span class="btn btn-primary" ng-click="goExplicit({prodId:product.id})">详情</span></td>
       </tr>
     </table>
 

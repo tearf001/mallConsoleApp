@@ -6,7 +6,7 @@ var app;
 
   app = angular
     .module('mallConsoleApp', ['ngAnimate', 'ngTouch', 'ngSanitize',
-      'restangular', 'ui.router', 'ui.bootstrap','ngStorage','ngFileUpload','ui.router.history','ui.tinymce','ui.tree']);
+      'restangular', 'ui.router', 'ui.bootstrap', 'ngStorage', 'ngFileUpload', 'ui.router.history', 'ui.tinymce', 'ui.tree', 'ui.sortable']);
   //没有CORS
   app.constant('ngAuthSettings', {
     apiServiceBaseUri: '/', //http://10.36.111.213/DomainWiser/',
