@@ -3,6 +3,7 @@
 代码生成器 gulp-angular<br/>
 
 <h1>前端组件</h1>
+<pre><code>
 {
   "name": "mallConsoleApp",
   "version": "0.0.0",
@@ -34,3 +35,4 @@
     "angular": "~1.4.0"
   }
 }
+</code></pre>
