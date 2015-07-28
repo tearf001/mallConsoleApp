@@ -16,7 +16,7 @@
   <div class="form-group">
     <label>图片</label>
     <!--图片预览-->
-    <div class="col-md-12">
+    <div class="col-md-12 item-with-images">
       <div ui-sortable ng-model="singleProduct.orderImages">
         <div class="col-md-2" ng-repeat="fileurl in singleProduct.orderImages">
           <div>
@@ -28,23 +28,31 @@
         </div>
       </div>
     </div>
-    <div class="item-with-images">
-      <div ngf-select
-           class="btn btn-primary"
-           ngf-multiple="true"
-           ngf-accept="'image/*'"
-           ng-model="singleProduct._files"
-           ngf-keep-distinct="true"
-           ngf-keep="true"
-           ngf-drop
-        >增加图片/或者拖放在这里
+    <div class="col-md-12 ngf-upload-area">
+      <div class="btn-group">
+        <button ngf-select
+             class="pull-left btn btn-info"
+             ngf-multiple="true"
+             ngf-accept="'image/*'"
+             ng-model="singleProduct._files"
+             ngf-keep-distinct="true"
+             ngf-keep="true"
+             ngf-drop>
+          <!--<div class="btn btn-default">-->
+            <h2>增加图片/或者拖放在这里</h2>
+          <!--</div>-->
+        </button>
+        <button class="btn btn-warning" ng-click="singleProduct.upload(singleProduct._files)"><h2>上传</h2></button>
       </div>
-      <button class="btn btn-primary" ng-click="singleProduct.upload(singleProduct._files)">上传</button>
       <div class="col-md-12 col-xs-12" ui-sortable ng-model="singleProduct._files">
         <div class="col-md-2 col-xs-6" ng-repeat="file in singleProduct._files">
           <div>
-            <img ngf-src="file" ngf-accept="'image/*'" style="width:200px;padding: 15px">
-            <center style="width:200px"><span ng-bind="file.name"></span></center>
+            <div>
+              <div class="close" ng-click="singleProduct._files.splice($index,1)">&times;</div>
+              <img ngf-src="file" ngf-accept="'image/*'" style="width:100%;padding: 15px">
+
+              <center style="width:100%"><span ng-bind="file.name"></span></center>
+            </div>
           </div>
         </div>
       </div>
@@ -56,15 +64,15 @@
     </div>
   </div>
   <div class="form-group">
-    <label>商品说明:多媒体编辑</label>
+    <label>商品说明:</label>
 
     <div>
+      <h2>多媒体编辑</h2>
       <div class="alert alert danger" style="float:left;position: relative;padding:0">
       <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel" style="z-index: 1000">
       </textarea>
-
         <div>
-          <button style="position:absolute;top:0;right:0;width: 100px" ng-click="openImgPicker()">上传图片</button>
+          <button class="btn btn-success" style="position:absolute;top:0;right:0;width: 100px" ng-click="openImgPicker()">上传图片</button>
         </div>
       </div>
     </div>

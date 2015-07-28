@@ -30,6 +30,50 @@
 body {
   overflow-x: hidden;
 }
+
+.item-with-images {
+  background-color: darken(#fff,5%);
+  border: 1px solid darken(#fff,10%);
+}
+
+
+.ab-left{
+  padding-left: 0px;
+  margin-left:0px
+}
+.ngf-upload-area{
+  .ab-left;
+  div{
+    .ab-left;
+  }
+  width: 100%;
+}
+
+input[type="checkbox"]{
+  -webkit-appearance: none;
+  appearance: none;
+  background: #000;
+  border-radius: 1px;
+  box-sizing: border-box;
+  position: relative;
+  left:20px;
+  width: 20px;
+  height: 20px;
+  border-width: 0;
+  &:checked{
+    background-color: #2ECC71;
+    //&:before {
+    //  content:'V';
+    //  padding-left: 5px;
+    //}
+  }
+  &:focus{
+    outline: 0 none;
+    box-shadow: none;
+  }
+}
+
+
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
  *  all your less files automatically

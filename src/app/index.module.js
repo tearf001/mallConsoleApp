@@ -1,13 +1,39 @@
 var app;
 (function () {
   'use strict';
+  var environmentEnum = Object.freeze({"test": 1, "product": 2, "develop": 3});
+  //////////////////////////////////////////////////////////////////////////////////
+  ///////!!!!!!非常重要,运行环境!!!!!/////////////////////////////////////////////////
+  var app_environment = environmentEnum.develop;////////////////////////////////////
+  ///////!!!!!!非常重要,运行环境!!!!//////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////
+  //工作环境判定
+  function environ() {
+    var ctx={};
+    ctx.isTest = function () {
+      return app_environment == environmentEnum.test;
+    };
+    ctx.isProduct = function () {
+      return app_environment == environmentEnum.product;
+    };
+    ctx.isDevelop = function () {
+      return app_environment == environmentEnum.develop;
+    };
+    return ctx;
+  }
+  //运行环境参数设定
+  var environContext = environ();
+  environContext[environmentEnum.test] = { isTest: true, uploadUrl:undefined };
+  environContext[environmentEnum.product] = { isProduct:true,uploadUrl:'' };
+  environContext[environmentEnum.develop] = { isDevelop:true, uploadUrl:'http://localhost:7245/api/fileUp' };
 
-  extend_3rds();
-
+  //扩展的模块
+  extended_modules_for_app();
   app = angular
     .module('mallConsoleApp', ['ngAnimate', 'ngTouch', 'ngSanitize',
       'restangular', 'ui.router', 'ui.bootstrap', 'ngStorage', 'ngFileUpload', 'ui.router.history', 'ui.tinymce', 'ui.tree', 'ui.sortable']);
-  //没有CORS
+  app.constant('environment',environContext[app_environment]);
+  //CORS Or not
   app.constant('ngAuthSettings', {
     apiServiceBaseUri: '/', //http://10.36.111.213/DomainWiser/',
     // apiServiceBaseUri: 'http://localhost:26264/',
@@ -23,8 +49,7 @@ var app;
   }]);
 
 
-
-  function extend_3rds() {
+  function extended_modules_for_app() {
     angular.module("ui.router.history", [
       "ui.router"
     ]).service("$history", function ($state, $rootScope, $window) {
