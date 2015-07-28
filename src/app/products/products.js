@@ -9,9 +9,9 @@
     ['$stateProvider', '$urlRouterProvider',
       function ($stateProvider, $urlRouterProvider) {
         $stateProvider
-          .state('products', {
+          .state('products', {  //根
             url: '/products',
-            abstract: true,
+            abstract: true,     //抽象状态-其状态不可直接激活,而由其子状态激活,那么其视图模板中的ui-view即为子状态视图填充
             templateUrl: 'app/products/products.html',
             controller: 'productsCommonCtrl'
           })
@@ -19,7 +19,7 @@
             url: '',
             templateUrl: 'app/products/products.list.html'
           })
-          .state('products.template', { //特定类型下清单
+          .state('products.template', { //特定类型下列表
             url: '/tmpl/{tmplId:[0-9]+}',
             resolve:{
               //每次进入前重新加载
@@ -42,7 +42,7 @@
                 }}
             }
           })
-          .state('products.template.single', { //单个商品
+          .state('products.template.single', { //单个商品详情
             url: '/{prodId:[0-9]+}',
             templateUrl: 'app/products/products.single.html',                         //tmplProducts 由父状态继承
             controller: ['$scope', '$stateParams', '$state', 'utils', '$log', '$history', 'Restangular', 'tmplProducts',
@@ -67,7 +67,7 @@
               // This is targeting the unnamed view within the 'contacts.detail' state
               // essentially swapping out the template that 'contacts.detail.item' had
               // inserted with this state's template.
-              '@products': { //'@products' 时占用母页ui-view区域; 而 @products.template.single当前页
+              '@products': { //'@products' 时占用母页ui-view区域; 原来由 @products.template.single视图填充
                 templateUrl: 'app/products/products.single.edit.html',
                 resolve: {
                   //每次进入前重新加载
@@ -96,6 +96,7 @@
                     //$scope.orderImages=$scope.singleProduct.orderImages;
                     //新加的图片
                     //$scope.singleProduct.files = [];
+                    $scope.tinymce = tinymce;
                     $scope.tinymceOptions = {
                       onChange: function(e) {
                         // put logic here for keypress and cut/paste changes
@@ -107,7 +108,7 @@
                       lang:'zh_CN'
                     };
                     $scope.pickBack = undefined;
-                    $scope.openImgPicker = function () {
+                    $scope.openImgPicker = function () { //打开情态窗口
                       var modalInstance = $modal.open({
                         animation: false,
                         templateUrl: 'app/components/img-picker/img-picker.html',
@@ -122,6 +123,9 @@
                       modalInstance.result.then(function (pickBack) {
                         $scope.pickBack = pickBack;
                         $log.info('Modal return with: ', pickBack);
+                        _.forEach(pickBack, function (i) {
+                          tinymce.activeEditor.execCommand('mceInsertContent', false, i);
+                        });
                       }, function (e) {
                         $log.info('Modal dismissed at: ', e);
                       });
