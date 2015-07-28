@@ -1,6 +1,6 @@
 # mallConsoleApp
 商城管理js前端 front-end<br/>
-代码生成器 gulp-angular<br/>
+脚手架-yeoman生成器 gulp-angular<br/>
 
 <h1>前端组件</h1>
 <pre><code>
