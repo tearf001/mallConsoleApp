@@ -24,12 +24,8 @@
             resolve:{
               //每次进入前重新加载
               tmplProducts: function (utils,productsService,$stateParams) {
-                return productsService.getProductsByType($stateParams.tmplId).then(function (data) {
-                    //alert(JSON.stringify(data));
-                    return data;
-                  }, function (err) {
-                    return err;
-                });
+                console.log('riririri',productsService.getProductsByType($stateParams.tmplId));
+                return productsService.getProductsByType($stateParams.tmplId);
               }
             },
             views: {
@@ -96,17 +92,21 @@
                     //$scope.orderImages=$scope.singleProduct.orderImages;
                     //新加的图片
                     //$scope.singleProduct.files = [];
-                    $scope.tinymce = tinymce;
+                    //$scope.tinymce = tinymce;
                     $scope.tinymceOptions = {
                       onChange: function(e) {
                         // put logic here for keypress and cut/paste changes
                       },
                       inline: false,
-                      plugins : 'advlist autolink link image lists charmap preview',
+                      plugins : 'code advlist autolink link image lists charmap preview',
                       skin: 'lightgray',
                       theme : 'modern',
                       lang:'zh_CN'
                     };
+                    $scope.ckeditorOptions= ckeditorConfig();
+                    //$scope.onReadyConfig = function(){
+                    //  ckeditorConfig(CKEDITOR);
+                    //};
                     $scope.pickBack = undefined;
                     $scope.openImgPicker = function () { //打开情态窗口
                       var modalInstance = $modal.open({
@@ -123,9 +123,14 @@
                       modalInstance.result.then(function (pickBack) {
                         $scope.pickBack = pickBack;
                         $log.info('Modal return with: ', pickBack);
-                        _.forEach(pickBack, function (i) {
-                          tinymce.activeEditor.execCommand('mceInsertContent', false, i);
+                        var oEditor =  CKEDITOR.instances.editor1;
+                        _.forEach(pickBack, function (ins) {
+                          //tinymce.activeEditor.execCommand('mceInsertContent', false, i);
+                          var newElement = CKEDITOR.dom.element.createFromHtml( ins, oEditor.document );
+                          oEditor.insertElement( newElement );
+
                         });
+
                       }, function (e) {
                         $log.info('Modal dismissed at: ', e);
                       });
@@ -139,9 +144,9 @@
   )
     .controller('productsCommonCtrl', ['$scope', '$state', '$http', '$timeout', 'Upload', 'productTypes', 'productsService',
       function ($scope, $state, $http, $timeout, Upload, productTypes, productsService) {
-        productsService.getProductsByType('').then(function (data) { //每次进入都重新加载
-          $scope.products = data;
-        });
+        //productsService.getProductsByType('').then(function (data) { //每次进入都重新加载
+        //  $scope.products = data;
+        //});
         $scope.types = productTypes;
       }])
     //tmplProducts ,加载时 resolve获得
@@ -174,6 +179,83 @@
         }
       }]);
 
+  ///////////////////逻辑结束////////////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  ///////////////////多文本编辑器配置////////////////////////////
+  function ckeditorConfig(){
+    var config ={};
+    return config; //all - default config
+    function fn(config) {
+      // Define changes to default configuration here. For example:
+      // config.language = 'fr';
+      // config.uiColor = '#AADC6E';Source
 
+      config.extraPlugins = 'smiley,codesnippet,image2';
+      config.toolbar = [
+        { name: 'document', groups: ['mode', 'document', 'doctools'], items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },
+        { name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'RemoveFormat'] },
+        { name: 'paragraph', groups: ['blocks', 'align'], items: ['Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+        { name: 'insert', groups: ['media'], items: ['Image2', 'Smiley', 'CodeSnippet', 'Image'] },
+        { name: 'links', items: ['Link'] },
+        { name: 'styles', items: ['Font', 'FontSize'] },
+        { name: 'colors', items: ['TextColor', 'BGColor'] },
+        { name: 'tools', items: ['Maximize', 'ShowBlocks'] },
+        { name: 'about', items: ['About'] }
+      ];
+
+      // Toolbar groups configuration.
+      config.toolbarGroups = [
+        { name: 'document', groups: ['mode', 'document', 'doctools'] },
+        { name: 'clipboard', groups: ['clipboard', 'undo'] },
+        { name: 'editing', groups: ['find', 'selection', 'spellchecker'] },
+        { name: 'forms' },
+        '/',
+        { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+        { name: 'paragraph', groups: ['blocks', 'align'] },
+        { name: 'links' },
+        { name: 'insert' ,groups:['media']},
+        '/',
+        { name: 'styles' },
+        { name: 'colors' },
+        { name: 'tools' },
+        { name: 'about' }
+      ];
+      config.codeSnippet_languages = {
+        cpp: 'C++',
+        cs: 'C#',
+        css: 'CSS',
+        html: 'HTML',
+        http: 'HTTP',
+        java: 'Java',
+        javascript: 'JavaScript',
+        json: 'JSON',
+        objectivec: 'Objective-C',
+        perl: 'Perl',
+        python: 'Python',
+        sql: 'SQL',
+        vbscript: 'VBScript',
+        xml: 'XML'
+      };
+      config.codeSnippet_theme = "default";
+    }
+    fn(config);
+    return  config;
+  }
 
 })();

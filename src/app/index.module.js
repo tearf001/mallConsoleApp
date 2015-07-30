@@ -1,7 +1,7 @@
 var app;
 (function () {
   'use strict';
-  var environmentEnum = Object.freeze({"test": 1, "product": 2, "develop": 3});
+  var environmentEnum = Object.freeze({"test": 1, "product": 2, "develop": 3,"static":4});
   //////////////////////////////////////////////////////////////////////////////////
   ///////!!!!!!非常重要,运行环境!!!!!/////////////////////////////////////////////////
   var app_environment = environmentEnum.develop;////////////////////////////////////
@@ -23,15 +23,21 @@ var app;
   }
   //运行环境参数设定
   var environContext = environ();
-  environContext[environmentEnum.test] = { isTest: true, uploadUrl:undefined };
-  environContext[environmentEnum.product] = { isProduct:true,uploadUrl:'' };
-  environContext[environmentEnum.develop] = { isDevelop:true, uploadUrl:'http://localhost:7245/api/fileUp' };
+  environContext[environmentEnum.test] = { isTest: true,apiBaseUrl:undefined,uploadUrl:undefined };
+  environContext[environmentEnum.product] = { isProduct:true,apiBaseUrl:'',uploadUrl:'' };
+  environContext[environmentEnum.develop] = { isDevelop:true,apiBaseUrl:'http://localhost:7245/api', uploadUrl:'http://localhost:7245/api/fileUp' };
+  environContext[environmentEnum.static] = angular.extend({},environContext[environmentEnum.develop],{ isStatic:true,testData:'assets/test-data'});
 
   //扩展的模块
   extended_modules_for_app();
   app = angular
-    .module('mallConsoleApp', ['ngAnimate', 'ngTouch', 'ngSanitize',
-      'restangular', 'ui.router', 'ui.bootstrap', 'ngStorage', 'ngFileUpload', 'ui.router.history', 'ui.tinymce', 'ui.tree', 'ui.sortable']);
+    .module('mallConsoleApp', ['ngAnimate', 'ngTouch', 'ngSanitize', //官方模块
+      'restangular', 'ui.router',  'ngStorage', //第三方 数据,逻辑模块
+      'ui.bootstrap', 'ngFileUpload', 'ui.tree', //第三方 控件,ui工具类
+      'ui.tinymce','ckeditor', //多文本编辑器
+      'ui.sortable',  //第三方:小模块
+      'ui.router.history'  //本地模块
+    ]);
   app.constant('environment',environContext[app_environment]);
   //CORS Or not
   app.constant('ngAuthSettings', {
@@ -47,6 +53,39 @@ var app;
   app.run(['authService', function (authService) {
     authService.fillAuthData();
   }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ///本地模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
+  ///自定义模块
 
 
   function extended_modules_for_app() {

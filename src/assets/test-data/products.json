@@ -2,18 +2,117 @@
 {
   "data":
   [
-    {"id":1,"name":"设备类商品-手机","type":"1"},
-    {"id":2,"name":"设备类商品-路由器","type":"1"},
-    {"id":3,"name":"礼包类","type":"2"},
     {
-      "id": 4,
-      "name": "虚拟类-流量卡",
-      "type": "3",
-      "price": 0.01,
-      "orderImages": [
-        "assets/images/angular.png",
-        "assets/images/gulp.png"
-      ]
+      "productID": 8,
+      "productName": "华为P7（P7-L090）电信4G版 白色",
+      "pImagUrl": null,
+      "onSaleTime": "2015-06-09T00:00:00",
+      "offSaleTime": "2015-06-15T00:00:00",
+      "productTypeName": "物流（快递）",
+      "tCount": 100,
+      "tSaleCount": 0,
+      "tGoodReplyCnt": 0,
+      "commentCNT": 0,
+      "imgCommentCNT": 0,
+      "consultcnt": 0
+    },
+    {
+      "productID": 10,
+      "productName": "iPhone 6 Plus",
+      "pImagUrl": null,
+      "onSaleTime": "2015-06-09T00:00:00",
+      "offSaleTime": "2015-06-15T00:00:00",
+      "productTypeName": "物流（快递）",
+      "tCount": 100,
+      "tSaleCount": 0,
+      "tGoodReplyCnt": 0,
+      "commentCNT": 0,
+      "imgCommentCNT": 0,
+      "consultcnt": 0
+    },
+    {
+      "productID": 11,
+      "productName": "锐捷两口光猫",
+      "pImagUrl": "http://hb.10000shequ.com/meet/mall/lkougm0617_m00.png",
+      "onSaleTime": "2015-06-17T00:00:00",
+      "offSaleTime": "2016-06-17T00:00:00",
+      "productTypeName": "物流（快递）",
+      "tCount": 50,
+      "tSaleCount": 0,
+      "tGoodReplyCnt": 0,
+      "commentCNT": 0,
+      "imgCommentCNT": 0,
+      "consultcnt": 0
+    },
+    {
+      "productID": 12,
+      "productName": "华为高清智能机顶盒",
+      "pImagUrl": "http://hb.10000shequ.com/meet/mall/hweigqzn0617_00.png",
+      "onSaleTime": "2015-06-17T00:00:00",
+      "offSaleTime": "2016-06-17T00:00:00",
+      "productTypeName": "物流（快递）",
+      "tCount": 50,
+      "tSaleCount": 2,
+      "tGoodReplyCnt": 0,
+      "commentCNT": 0,
+      "imgCommentCNT": 0,
+      "consultcnt": 4
+    },
+    {
+      "productID": 13,
+      "productName": "iPhone6",
+      "pImagUrl": "http://hb.10000shequ.com/meet/mall/iphone6_m00.png",
+      "onSaleTime": "2015-06-17T00:00:00",
+      "offSaleTime": "2016-06-17T00:00:00",
+      "productTypeName": "物流（快递）",
+      "tCount": 50,
+      "tSaleCount": 0,
+      "tGoodReplyCnt": 0,
+      "commentCNT": 0,
+      "imgCommentCNT": 0,
+      "consultcnt": 6
+    },
+    {
+      "productID": 14,
+      "productName": "华为C8818",
+      "pImagUrl": "http://hb.10000shequ.com/meet/mall/hweic8818_m00.png",
+      "onSaleTime": "2015-06-17T00:00:00",
+      "offSaleTime": "2016-06-17T00:00:00",
+      "productTypeName": "物流（快递）",
+      "tCount": 50,
+      "tSaleCount": 0,
+      "tGoodReplyCnt": 0,
+      "commentCNT": 0,
+      "imgCommentCNT": 0,
+      "consultcnt": 0
+    },
+    {
+      "productID": 15,
+      "productName": "华为Mate7",
+      "pImagUrl": "http://hb.10000shequ.com/meet/mall/hweimate7c00_m00.png",
+      "onSaleTime": "2015-06-17T00:00:00",
+      "offSaleTime": "2016-06-17T00:00:00",
+      "productTypeName": "物流（快递）",
+      "tCount": 50,
+      "tSaleCount": 0,
+      "tGoodReplyCnt": 0,
+      "commentCNT": 0,
+      "imgCommentCNT": 0,
+      "consultcnt": 0
+    },
+    {
+      "productID": 16,
+      "productName": "中兴小鲜2",
+      "pImagUrl": "http://hb.10000shequ.com/meet/mall/zteB880_m00.png",
+      "onSaleTime": "2015-06-17T00:00:00",
+      "offSaleTime": "2016-06-17T00:00:00",
+      "productTypeName": "物流（快递）",
+      "tCount": 50,
+      "tSaleCount": 0,
+      "tGoodReplyCnt": 0,
+      "commentCNT": 0,
+      "imgCommentCNT": 0,
+      "consultcnt": 0
     }
   ]
 

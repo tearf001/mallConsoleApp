@@ -1,17 +1,20 @@
-﻿'use strict';
-app.controller('signupController', ['$scope', '$location', '$timeout', 'authService', function ($scope, $location, $timeout, authService) {
+﻿(function () {
+  'use strict';
 
-    $scope.savedSuccessfully = false;
-    $scope.message = "";
+  angular.module('mallConsoleApp')
+    .controller('SignupCtrl', ['$scope', '$location', '$timeout', 'authService', function ($scope, $location, $timeout, authService) {
 
-    $scope.registration = {
+      $scope.savedSuccessfully = false;
+      $scope.message = "";
+
+      $scope.registration = {
         userName: "",
         password: "",
         deptId :"",
         confirmPassword: ""
-    };
+      };
 
-    $scope.signUp = function () {
+      $scope.signUp = function () {
 
         authService.saveRegistration($scope.registration).then(function (response) {
 
@@ -19,23 +22,24 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
             $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
             startTimer();
 
-        },
-         function (response) {
-             var errors = [];
-             for (var key in response.data.modelState) {
-                 for (var i = 0; i < response.data.modelState[key].length; i++) {
-                     errors.push(response.data.modelState[key][i]);
-                 }
-             }
-             $scope.message = "Failed to register user due to:" + errors.join(' ');
-         });
-    };
+          },
+          function (response) {
+            var errors = [];
+            for (var key in response.data.modelState) {
+              for (var i = 0; i < response.data.modelState[key].length; i++) {
+                errors.push(response.data.modelState[key][i]);
+              }
+            }
+            $scope.message = "Failed to register user due to:" + errors.join(' ');
+          });
+      };
 
-    var startTimer = function () {
+      var startTimer = function () {
         var timer = $timeout(function () {
-            $timeout.cancel(timer);
-            $location.path('/login');
+          $timeout.cancel(timer);
+          $location.path('/login');
         }, 2000);
-    }
+      }
 
-}]);
+    }]);
+})();

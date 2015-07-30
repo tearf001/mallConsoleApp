@@ -69,8 +69,8 @@
     <div>
       <h2>多媒体编辑</h2>
       <div class="alert alert danger" style="float:left;position: relative;padding:0">
-      <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel" style="z-index: 1000">
-      </textarea>
+      <div ckeditor="ckeditorOptions"  ng-model="rteModel" style="z-index: 1000;width:1000px">
+      </div>
         <div>
           <button class="btn btn-success" style="position:absolute;top:0;right:0;width: 100px" ng-click="openImgPicker()">上传图片</button>
         </div>

@@ -1,24 +1,27 @@
-﻿'use strict';
-app.controller('loginController', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
+﻿(function () {
+  "use strict";
+  angular.module('mallConsoleApp')
+    .controller('LoginCtrl', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
 
-    $scope.loginData = {
+      $scope.loginData = {
         userName: "",
         password: "",
         useRefreshTokens: true
-    };
+      };
 
-    $scope.message = "";
+      $scope.message = "";
 
-    $scope.login = function () {
+      $scope.login = function () {
 
         authService.login($scope.loginData).then(function (response) {
 
             $location.path('/');
 
-        },
-         function (err) {
-             $scope.message = err.error_description;
-         });
-    };
+          },
+          function (err) {
+            $scope.message = err.error_description;
+          });
+      };
 
-}]);
+    }]);
+})();
