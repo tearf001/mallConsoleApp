@@ -1,8 +1,8 @@
 ﻿(function(app){
   'use strict';
   app.factory('authInterceptorService',
-    ['$q', '$injector','$location', '$sessionStorage',
-      function ($q,$injector, $location, $sessionStorage) {
+    ['$q', '$injector','$location', '$localStorage',
+      function ($q,$injector, $location, $localStorage) {
 
         var authInterceptorServiceFactory = {};
         //头封装  包含token
@@ -10,7 +10,7 @@
           //console.log('-----**----',config);
           config.headers = config.headers || {};
 
-          var authData = $sessionStorage['authorizationData'];
+          var authData = $localStorage['authorizationData'];
           if (authData) {
             config.headers.Authorization = 'Bearer ' + authData.token;
           }

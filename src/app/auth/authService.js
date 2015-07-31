@@ -1,9 +1,8 @@
 ﻿(function(app){
   'use strict';
   app.factory('authService',
-    ['$http', '$q', '$sessionStorage', 'ngAuthSettings',
-      function ($http, $q, $sessionStorage, ngAuthSettings) {
-
+    ['$http', '$q', '$localStorage', 'ngAuthSettings','environment',
+      function ($http, $q, $localStorage, ngAuthSettings,environment) {
         var serviceBase = ngAuthSettings.apiServiceBaseUri;
         var authServiceFactory = {};
 
@@ -22,7 +21,21 @@
           });
 
         };
-
+        //静态,用于测试
+        var _loginStatic = function (loginData) {
+          var response = {access_token:'23234241-1123-23'};
+          return $q.when(response).then(function () {
+            _authentication.isAuth = true;
+            _authentication.userName = loginData.userName;
+            _authentication.useRefreshTokens = loginData.useRefreshTokens;
+            $localStorage.authorizationData = {
+              token: response.access_token,
+              userName: loginData.userName,
+              refreshToken: "",
+              useRefreshTokens: false
+            };
+          });
+        };
         var _login = function (loginData) {
 
           var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
@@ -32,51 +45,37 @@
           }
 
           var deferred = $q.defer();
-          var response = {access_token:'23234241-1123-23'};
-          $sessionStorage.authorizationData = {
-            token: response.access_token,
-            userName: loginData.userName,
-            refreshToken: "",
-            useRefreshTokens: false
-          };
-
-          _authentication.isAuth = true;
-          _authentication.userName = loginData.userName;
-          _authentication.useRefreshTokens = loginData.useRefreshTokens;
-          deferred.resolve(response);
-          return deferred.promise;
           //console.log(data);
-          //实际代码
-          //$http.post(serviceBase + 'token', data, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
-          //    .success(function (response) {
-          //        if (loginData.useRefreshTokens) {
-          //            $sessionStorage.authorizationData= {
-          //                token: response.access_token,
-          //                userName: loginData.userName,
-          //                refreshToken: response.refresh_token,
-          //                useRefreshTokens: true
-          //            }
-          //        }
-          //        else {
-          //            $sessionStorage.authorizationData= {
-          //                token: response.access_token,
-          //                userName: loginData.userName,
-          //                refreshToken: "",
-          //                useRefreshTokens: false
-          //            };
-          //        }
-          //        _authentication.isAuth = true;
-          //        _authentication.userName = loginData.userName;
-          //        _authentication.useRefreshTokens = loginData.useRefreshTokens;
-          //
-          //        deferred.resolve(response);
-          //
-          //    }).error(function (err, status) {
-          //        _logOut();
-          //        deferred.reject(err);
-          //    });
-          //
-          //return deferred.promise;
+          $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+            .success(function (response) {
+              if (loginData.useRefreshTokens) {
+                $localStorage['authorizationData'] = {
+                  token: response.access_token,
+                  userName: loginData.userName,
+                  refreshToken: response.refresh_token,
+                  useRefreshTokens: true
+                };
+              }
+              else {
+                $localStorage['authorizationData']= {
+                  token: response.access_token,
+                  userName: loginData.userName,
+                  refreshToken: "",
+                  useRefreshTokens: false
+                };
+              }
+              _authentication.isAuth = true;
+              _authentication.userName = loginData.userName;
+              _authentication.useRefreshTokens = loginData.useRefreshTokens;
+
+              deferred.resolve(response);
+
+            }).error(function (err, status) {
+              _logOut();
+              deferred.reject(err);
+            });
+
+          return deferred.promise;
 
         };
         var _changePassword = function (userName, oldpass, newpass) {
@@ -96,10 +95,10 @@
             return ex;
           })
 
-        }
+        };
         var _logOut = function () {
 
-          delete $sessionStorage['authorizationData'];
+          delete $localStorage['authorizationData'];
           console.log('you call logout!')
           _authentication.isAuth = false;
           _authentication.userName = "";
@@ -109,7 +108,7 @@
 
         var _fillAuthData = function () {
 
-          var authData = $sessionStorage['authorizationData'];
+          var authData = $localStorage['authorizationData'];
           if (authData) {
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;
@@ -121,7 +120,7 @@
         var _refreshToken = function () {
           var deferred = $q.defer();
 
-          var authData = $sessionStorage['authorizationData'];
+          var authData = $localStorage['authorizationData'];
 
           if (authData) {
 
@@ -129,11 +128,11 @@
 
               var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken + "&client_id=" + ngAuthSettings.clientId;
 
-              delete $sessionStorage['authorizationData'];
+              delete $localStorage['authorizationData'];
 
               $http.post(serviceBase + 'token', data, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function (response) {
 
-                $sessionStorage['authorizationData'] = {
+                $localStorage['authorizationData'] = {
                   token: response.access_token,
                   userName: response.userName,
                   refreshToken: response.refresh_token,
@@ -152,7 +151,7 @@
         };
 
         authServiceFactory.saveRegistration = _saveRegistration;
-        authServiceFactory.login = _login;
+        authServiceFactory.login = environment.isStatic?_loginStatic:_login;
         authServiceFactory.logOut = _logOut;
         authServiceFactory.changePassword = _changePassword;
         authServiceFactory.fillAuthData = _fillAuthData;

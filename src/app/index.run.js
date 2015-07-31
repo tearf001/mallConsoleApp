@@ -11,7 +11,8 @@
     $log.debug('runBlock end');
   }
 
-  function runDebug($rootScope, $state, $stateParams, $log) {
+  function runDebug($rootScope, $state, $stateParams, $log,authService) {
+    $rootScope['authentication'] = authService.authentication;
     $rootScope['$state'] = $state;
     $log.debug('$state',$state);
     $rootScope['$stateParams'] = $stateParams;

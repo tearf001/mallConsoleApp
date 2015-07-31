@@ -27,7 +27,7 @@
       <tr ng-repeat="product in products">
         <td>{{product.productID}}</td>
         <td>{{product.productName}}</td>
-        <td>{{product.tCount}}</td>
+        <td>{{product.TCount}}</td>
         <td>
           <img ng-src="{{product.pImagUrl}}" alt="商品图片" style="width:50px;height: 50px" />
         </td>
@@ -37,12 +37,11 @@
         <td>{{product.commentCNT}}</td>
         <td>{{product.imgCommentCNT}}</td>
         <td>{{product.consultcnt}}</td>
-        <td>{{product.onSaleTime}}/{{product.offSaleTime}}</td>
+        <td>{{product.onSaleTime}}-{{product.offSaleTime}}</td>
 
 
         <!--<td><span class="btn btn-primary" ui-sref="products.template.single({prodId:product.id})">详情</span></td>-->
         <td><span class="btn btn-primary" ng-click="goExplicit({prodId:product.id})">详情</span></td>
-
       </tr>
     </table>
 

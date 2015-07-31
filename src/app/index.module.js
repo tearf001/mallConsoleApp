@@ -41,7 +41,7 @@ var app;
   app.constant('environment',environContext[app_environment]);
   //CORS Or not
   app.constant('ngAuthSettings', {
-    apiServiceBaseUri: '/', //http://10.36.111.213/DomainWiser/',
+    apiServiceBaseUri: 'http://localhost:7245/', //http://10.36.111.213/DomainWiser/',
     // apiServiceBaseUri: 'http://localhost:26264/',
     //apiServiceBaseUri: 'http://ngauthenticationapi.azurewebsites.net/',15569
     clientId: 'ngAuthApp'
