@@ -11,7 +11,7 @@
       restrict: 'E',
       templateUrl: 'app/components/navbar/navbar.html',
       scope: {
-          creationDate: '='
+        creationDate: '='
       },
       controller: NavbarController,
       controllerAs: 'vm',
@@ -21,11 +21,14 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController(moment) {
+    function NavbarController($state, authService) {
       var vm = this;
-
-      // "vm.creation" is avaible by directive option "bindToController: true"
-      vm.relativeDate = moment(vm.creationDate).fromNow();
+      vm.logOut = function () {
+        authService.logOut();
+        $state.go('home');
+        //, {reload : Math.random()},   {reload: true, inherit: true, notify: true}
+      };
+      vm.authentication = authService.authentication;
     }
   }
 
