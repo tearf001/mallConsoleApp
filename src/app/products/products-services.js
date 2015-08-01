@@ -1,43 +1,55 @@
 /**
  * Created by Administrator on 2015/7/1.
  */
-angular.module('mallConsoleApp')
-  .factory('productsService', ['$http', 'utils', 'environment', 'Restangular', function ($http, utils, environment, Restangular) {
+(function () {
+  'use strict';
+  //静态代码演示用.项目生产环境的'服务'全部封装在Restangular
+  angular.module('mallConsoleApp')
+    .factory('productsService', ['$http', 'utils', 'environment', function ($http, utils, environment) {
 
-    var path = environment.isStatic ? environment.testData + '/products.json' : environment.apiBaseUrl;
+      var heads = {header: {'Content-Type': 'application/json; charset=utf-8'}};
+      //promise;
 
-    var heads = {header: {'Content-Type': 'application/json; charset=utf-8'}};
-    //promise;
+      var promiseFn = function (path) {
+          return $http.get(path, heads).then(function (resp) {
+          console.log('--static--',path,'---', resp.data.data);
+          return resp.data.data;
+        }, function (error) {
+          console.log(error);
+          return error;
+        });
+      };
 
-    var products = Restangular.all(environment.isStatic ?'':'products');
+      var productsPromise = promiseFn(environment.testData + '/products.json');
+      var CategoriesPromise = promiseFn(environment.testData + '/productsCategory.json');
+      var productsInfoPromise = promiseFn(environment.testData + '/productsInfo.json');
+      var factory = {};
 
-    //var productsPromise = $http.get(path, heads).then(function (resp) {
-    //  console.log(resp.data.data);
-    //  return resp.data.data;
-    //}, function (error) {
-    //  console.log(error);
-    //  return error;
-    //});
 
-    var factory = {};
-    factory.all = function () {
-      return products;
-    };
-    factory.getProductsByType = function (type) {
-      return products.all('tmpl').one(type).getList();
-    }
-    //factory.getProductsByType = function (type) {
-    //  return this.all().then(function (data) {
-    //    if (!type) return data;
-    //    return data.filter(function (it) {
-    //      return it.type == type;
-    //    });
-    //  })
-    //};
-    //factory.get = function (id) {
-    //  return productsPromise.then(function () {
-    //    return utils.findById(productsPromise, id, 'productId');
-    //  })
-    //};
-    return factory;
-  }]);
+      factory.getProductsByCategoryId = function (id) {
+        return productsPromise.then(function (data) {
+          if (id===undefined) return data;
+          return data.filter(function (it) {
+            return it.subCategoryId == id;
+          });
+        })
+      };
+      factory.getCategories = function () {
+        return CategoriesPromise.then(function (data) {
+          return data;
+        })
+      };
+      factory.get = function (id) {
+        return productsPromise.then(function (data) {
+          return utils.findById(data, id, 'productID');
+        })
+      };
+      factory.getInfo = function (id) {
+        return productsInfoPromise.then(function (data) {
+          return utils.findById(data, id, 'productID');
+        })
+      };
+      return factory;
+    }]);
+
+})();
