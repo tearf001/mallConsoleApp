@@ -10,13 +10,13 @@
             abstract: true,     //抽象状态-其状态不可直接激活,而由其子状态激活,那么其视图模板中的ui-view即为子状态视图填充
             templateUrl: 'app/products/products.html',
             resolve: {
-              productTypes: function (Restangular) {
+              Categories: function (Restangular) {
                 return Restangular.all('products').all('types').getList();
               }
             },
-            controller: ['$scope', '$state', '$http', '$timeout', 'Upload', 'productTypes',
-              function ($scope, $state, $http, $timeout, Upload, productTypes) {
-                $scope.productTypes = productTypes;
+            controller: ['$scope', '$state', '$http', '$timeout', 'Upload', 'Categories',
+              function ($scope, $state, $http, $timeout, Upload, Categories) {
+                $scope.Categories = Categories;
               }]
           })
           .state('products.overview', {
@@ -66,18 +66,13 @@
                 $log.debug('--singleProduct@products.single!--', $scope.singleProduct, '--productIns--',productIns);
                 $scope.$stateParams = $stateParams;
 
-                $scope.prodInfoTabs = _.map($scope.singleProduct.prodInfo, function (e,i) {
-                  return _.extend({},e,{ active__: i==0});
-                });
+                $scope.prodInfoTabs = [_.extend({},$scope.singleProduct.prodInfo,{ active__: true})];
 
                 $scope.back = function () {
                   $history.back();
                 };
-                $scope.edit = function (index) {
-                  if(index===0)
-                    $state.go('.edit', $stateParams);
-                  if(index===1)
-                    $state.go('.edit');
+                $scope.edit = function () {
+                  $scope.editSingle=!$scope.editSingle;
                 };
               }]
           })

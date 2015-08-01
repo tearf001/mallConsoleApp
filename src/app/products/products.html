@@ -5,7 +5,7 @@
         <li class="active">
           <a ui-sref="products.list" ui-sref-opts="{reload:true}">全部商品</a>
         </li>
-        <li class="active" ng-repeat="item in productTypes">
+        <li class="active" ng-repeat="item in Categories">
           <a ui-sref-opts="{reload:true}" ui-sref="products.template({tmplId:item.subCategoryID})">{{item.subCategoryName}}</a>
         </li>
       </ul>
