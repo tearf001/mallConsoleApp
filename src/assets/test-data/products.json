@@ -4,8 +4,9 @@
   [
     {
       "productID": 8,
+      "subCategoryId":5,
       "productName": "华为P7（P7-L090）电信4G版 白色",
-      "pImagUrl": null,
+      "pImagUrl": "http://img30.360buyimg.com/jgsq-productsoa/jfs/t607/159/834879594/153669/a64c327/5490d771Nf58df20b.jpg",
       "onSaleTime": "2015-06-09T00:00:00",
       "offSaleTime": "2015-06-15T00:00:00",
       "productTypeName": "物流（快递）",
@@ -18,8 +19,9 @@
     },
     {
       "productID": 10,
+      "subCategoryId":5,
       "productName": "iPhone 6 Plus",
-      "pImagUrl": null,
+      "pImagUrl": "http://img30.360buyimg.com/jgsq-productsoa/jfs/t1354/51/1020183491/95892/3b689fc6/55b87e3fNd2e104b4.jpg",
       "onSaleTime": "2015-06-09T00:00:00",
       "offSaleTime": "2015-06-15T00:00:00",
       "productTypeName": "物流（快递）",
@@ -32,6 +34,7 @@
     },
     {
       "productID": 11,
+      "subCategoryId":5,
       "productName": "锐捷两口光猫",
       "pImagUrl": "http://hb.10000shequ.com/meet/mall/lkougm0617_m00.png",
       "onSaleTime": "2015-06-17T00:00:00",
@@ -46,6 +49,7 @@
     },
     {
       "productID": 12,
+      "subCategoryId":5,
       "productName": "华为高清智能机顶盒",
       "pImagUrl": "http://hb.10000shequ.com/meet/mall/hweigqzn0617_00.png",
       "onSaleTime": "2015-06-17T00:00:00",
@@ -60,6 +64,7 @@
     },
     {
       "productID": 13,
+      "subCategoryId":5,
       "productName": "iPhone6",
       "pImagUrl": "http://hb.10000shequ.com/meet/mall/iphone6_m00.png",
       "onSaleTime": "2015-06-17T00:00:00",
@@ -74,6 +79,7 @@
     },
     {
       "productID": 14,
+      "subCategoryId":5,
       "productName": "华为C8818",
       "pImagUrl": "http://hb.10000shequ.com/meet/mall/hweic8818_m00.png",
       "onSaleTime": "2015-06-17T00:00:00",
@@ -88,6 +94,7 @@
     },
     {
       "productID": 15,
+      "subCategoryId":5,
       "productName": "华为Mate7",
       "pImagUrl": "http://hb.10000shequ.com/meet/mall/hweimate7c00_m00.png",
       "onSaleTime": "2015-06-17T00:00:00",
@@ -102,6 +109,7 @@
     },
     {
       "productID": 16,
+      "subCategoryId":5,
       "productName": "中兴小鲜2",
       "pImagUrl": "http://hb.10000shequ.com/meet/mall/zteB880_m00.png",
       "onSaleTime": "2015-06-17T00:00:00",

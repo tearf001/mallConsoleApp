@@ -5,19 +5,26 @@
         <span class="glyphicon glyphicon-home"></span> 10000社区商城管理
       </a>
     </div>
-
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
       <ul class="nav navbar-nav">
-        <li ui-sref-active="active"><a ui-sref="public-set">全局</a></li>
-        <li ui-sref-active="active"><a ui-sref="products.list">商品</a></li>
-        <li ui-sref-active="active"><a ui-sref="orders">订单</a></li>
-        <li ui-sref-active="active"><a ui-sref="home">物流</a></li>
-        <li ui-sref-active="active"><a ui-sref="comments">评论</a></li>
-        <li ui-sref-active="active"><a ui-sref="contacts.list">联系人</a></li>
+        <li ui-sref-active="active" ng-show="vm.authentication.isAuth"><a ui-sref="public-set">全局设定</a></li>
+        <li ui-sref-active="active" ng-show="vm.authentication.isAuth"><a ui-sref="products.overview">商品</a></li>
+        <li ui-sref-active="active" ng-show="vm.authentication.isAuth"><a ui-sref="orders">订单</a></li>
+        <li ui-sref-active="active" ng-show="vm.authentication.isAuth"><a ui-sref="home">物流</a></li>
+        <li ui-sref-active="active" ng-show="vm.authentication.isAuth"><a ui-sref="comments">评论</a></li>
+        <li ui-sref-active="active" ng-show="vm.authentication.isAuth"><a ui-sref="contacts.list">联系人</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right acme-navbar-text">
-        <li><a href="">登陆</a></li>
+        <li ng-show="!vm.authentication.isAuth"><a ui-sref="login">登陆</a></li>
+        <li ng-show="vm.authentication.isAuth">
+          <a ui-sref="setting" title="个人设置">
+            你好, {{vm.authentication.userName}}<span class="glyphicon glyphicon-cog"></span>
+          </a>
+        </li>
+        <li><a ng-click="vm.logOut()">登出</a></li>
+
       </ul>
     </div>
+
   </div>
 </nav>

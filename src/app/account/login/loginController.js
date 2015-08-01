@@ -1,7 +1,7 @@
 ﻿(function () {
   "use strict";
   angular.module('mallConsoleApp')
-    .controller('LoginCtrl', ['$scope', '$location', 'authService', function ($scope, $location, authService) {
+    .controller('LoginCtrl', ['$scope', '$state', 'authService', function ($scope, $state, authService) {
 
       $scope.loginData = {
         userName: "",
@@ -15,11 +15,11 @@
 
         authService.login($scope.loginData).then(function (response) {
 
-            $location.path('/');
+            $state.go('home',{reload:true});
 
           },
           function (err) {
-            $scope.message = err.error_description;
+            $scope.message = err;
           });
       };
 

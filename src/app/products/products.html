@@ -3,10 +3,10 @@
     <div class="well well-sm">
       <ul class="nav nav-list">
         <li class="active">
-          <a ui-sref="products.list">全部商品</a>
+          <a ui-sref="products.overview">全部商品</a>
         </li>
-        <li class="active" ng-repeat="item in types">
-          <a ui-sref="products.template({tmplId:item.value})">{{item.text}}</a>
+        <li class="active" ng-repeat="item in Categories">
+          <a ui-sref-opts="{reload:true}" ui-sref="products.template({tmplId:item.subCategoryID})">{{item.subCategoryName}}</a>
         </li>
       </ul>
     </div>
