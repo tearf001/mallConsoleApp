@@ -9,7 +9,10 @@
  *  If you want to override some bootstrap variables, you have to change values here.
  *  The list of variables are listed here bower_components/bootstrap/less/variables.less
  */
+
 @navbar-inverse-link-color: #5AADBB;
+@nav-list-front-color: #fff;
+@nav-list-bgc-color: #428bca;
 @icon-font-path: '../../bower_components/bootstrap/fonts/';
 
 .browsehappy {
@@ -71,6 +74,26 @@ input[type="checkbox"]{
     outline: 0 none;
     box-shadow: none;
   }
+}
+
+ul.nav.nav-list>li.active {
+  a {
+    background-color:@nav-list-bgc-color;
+    color:@nav-list-front-color;
+    &:hover{
+      //background-color: lighten(@nav-list-bgc-color, 20%);
+      //color: darken(@nav-list-front-color, 20%);
+    }
+  }
+}
+
+label{
+  width: 60px;
+}
+label ~ span,label ~ input{
+  padding-left: 15px;
+  color:darken(@nav-list-bgc-color,20);
+  text-decoration: underline;
 }
 
 

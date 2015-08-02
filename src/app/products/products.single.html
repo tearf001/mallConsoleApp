@@ -1,53 +1,81 @@
 <!--单商品预览-->
 <div class="container">
-
   <div class="row" style="position: relative">
     <div style="position: absolute;top:12px;right: 6%;z-index:1000">
-      <button class="btn glyphicon glyphicon-pencil" ng-click="edit()">编辑</button>
-      <button class="btn glyphicon glyphicon-circle-arrow-left" ng-click="back()">返回列表</button>
+      <button class="btn" ng-class="StateDesc[mainState][1]" ng-click="mainEdit()" ng-hide="mainState==1">
+        {{StateDesc[mainState][0]}}
+      </button>
+      <button class="btn glyphicon glyphicon-remove" ng-click="mainCancel()" ng-show="mainState">取消</button>
+      <button class="btn glyphicon glyphicon-circle-arrow-left" ui-sref="products.template">返回列表</button>
     </div>
     <div class="col-md-3">
       <div class="form-group" style="white-space:nowrap;overflow-x: hidden;overflow-y: auto">
-        <img ng-src="{{singleProduct.pImagUrl}}" style="height: 300px" alt="商品图片未提供"/>
+        <div ng-show="!mainState">
+          <img ng-src="{{productIns.pImagUrl}}" style="height: 300px" alt="商品图片未提供"/>
+        </div>
+        <div ng-show="mainState">
+          <!--文件上传-->
+          <single-img-upload src="productIns.pImagUrl"></single-img-upload>
+        </div>
       </div>
     </div>
     <div class="col-md-9">
       <div class="form-group">
-        <h1 ng-bind="singleProduct.productName"></h1>
+        <h3 ng-bind="productIns.productName"></h3>
       </div>
 
       <table class="table table-stripped">
         <tr>
           <td class="col-md-4">
-            <div class="form-group"><label>产品类型:</label><span ng-bind="singleProduct.productTypeName"></span></div>
+            <div class="form-group"><label>产品类型:</label>
+              <span ng-show="!mainState" ng-bind="productIns.productTypeName"></span>
+              <input ng-show="mainState" ng-model="productIns.productTypeName"/>
+            </div>
           </td>
           <td class="col-md-4">
-            <div class="form-group"><label>库存:</label><span ng-bind="singleProduct.tCount"></span></div>
+            <div class="form-group"><label>库存:</label>
+              <span ng-show="!mainState" ng-bind="productIns.tCount"></span>
+              <input ng-show="mainState" ng-model="productIns.tCount"/>
+            </div>
           </td>
           <td class="col-md-4">
-            <div class="form-group"><label>销售量:</label><span ng-bind="singleProduct.tSaleCount"></span></div>
+            <div class="form-group"><label>销售量:</label>
+              <span ng-show="!mainState" ng-bind="productIns.tSaleCount"></span>
+              <input ng-show="mainState" ng-model="productIns.tSaleCount"/>
+            </div>
           </td>
 
         </tr>
         <tr>
           <td class="col-md-4">
-            <div class="form-group"><label>评论数:</label><span ng-bind="singleProduct.commentCNT"></span></div>
+            <div class="form-group"><label>评论数:</label>
+              <span ng-show="!mainState" ng-bind="productIns.commentCNT"></span>
+              <input ng-show="mainState" ng-model="productIns.commentCNT"/>
+            </div>
           </td>
           <td class="col-md-4">
-            <div class="form-group"><label>好评数:</label><span ng-bind="singleProduct.tGoodReplyCnt"></span></div>
+            <div class="form-group"><label>好评数:</label>
+              <span ng-show="!mainState" ng-bind="productIns.tGoodReplyCnt"></span>
+              <input ng-show="mainState" ng-model="productIns.tGoodReplyCnt"/>
+            </div>
           </td>
           <td class="col-md-4">
-            <div class="form-group"><label>有图评论:</label><span ng-bind="singleProduct.imgCommentCNT"></span></div>
+            <div class="form-group"><label>有图评论:</label>
+              <span ng-show="!mainState" ng-bind="productIns.imgCommentCNT"></span>
+              <input ng-show="mainState" ng-model="productIns.imgCommentCNT"/>
+            </div>
           </td>
         </tr>
       </table>
     </div>
   </div>
+
   <div class="row">
     <tabset>
-      <tab ng-repeat="tab in prodInfoTabs" active="tab.active__" >
+      <tab ng-repeat="tab in prodInfoTabs" active="tab.active__">
         <tab-heading>
-          <span>产品参数</span><button class="btn-link glyphicon glyphicon-edit" ng-click="edit(1)"></button>
+          <span>产品参数</span>
+          <button class="btn-link glyphicon glyphicon-edit" ng-click="edit(1)"></button>
         </tab-heading>
         <div>
           <table class="table table-stripped">
@@ -56,7 +84,8 @@
                 <div class="form-group"><label>主要规格:</label><h6 ng-bind="tab.productInfo"></h6></div>
               </td>
               <td class="col-md-4">
-                <div class="form-group"><label>产品描述:</label><h6 class="mute" ng-bind="tab.productDescription"></h6></div>
+                <div class="form-group"><label>产品描述:</label><h6 class="mute" ng-bind="tab.productDescription"></h6>
+                </div>
               </td>
             </tr>
           </table>

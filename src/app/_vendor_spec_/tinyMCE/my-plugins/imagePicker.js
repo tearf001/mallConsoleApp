@@ -211,23 +211,23 @@
  * Contributing: http://www.tinymce.com/contributing
  */
 
-/*global tinymce:true */
-
-tinymce.PluginManager.add('imagePicker', function(editor) {
-  editor.addCommand('InsertImageWxh', function() {
-    editor.execCommand('mceInsertContent', false, '<acme-navbar/>');
-  });
-
-  editor.addButton('imagePicker', {
-    icon: 'image',
-    tooltip: '图片',
-    cmd: 'InsertImageWxh'
-  });
-
-  editor.addMenuItem('imagePicker', {
-    icon: 'image',
-    text: '图片',
-    cmd: 'InsertImageWxh',
-    context: 'insert'
-  });
-});
+///*global tinymce:true */
+//
+//tinymce.PluginManager.add('imagePicker', function(editor) {
+//  editor.addCommand('InsertImageWxh', function() {
+//    editor.execCommand('mceInsertContent', false, '<acme-navbar/>');
+//  });
+//
+//  editor.addButton('imagePicker', {
+//    icon: 'image',
+//    tooltip: '图片',
+//    cmd: 'InsertImageWxh'
+//  });
+//
+//  editor.addMenuItem('imagePicker', {
+//    icon: 'image',
+//    text: '图片',
+//    cmd: 'InsertImageWxh',
+//    context: 'insert'
+//  });
+//});

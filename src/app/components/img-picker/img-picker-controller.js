@@ -59,25 +59,4 @@
         $modalInstance.dismiss('cancel');
       };
     });
-  ////通过外部排序,hack方式
-  //.filter('sortByPseudoListTreeId', function ($log) {
-  //  return function (arrayStuff, scope) {
-  //    if(!(arrayStuff instanceof Array)) return arrayStuff;
-  //    return arrayStuff.sort(function (a, b) {
-  //      var ar = scope.imgPickerCtx.fileOrder;
-  //      return _.findIndex(ar, {'title': a.name}) - _.findIndex(ar, {'title': b.name});
-  //    });
-  //  };
-  //})
-  //$scope.$watch('imgPickerCtx.files', function () {
-  //  //$log.info('$scope.imgPickerCtx.files',$scope.imgPickerCtx.files);
-  //  if (!$scope.imgPickerCtx.files) return;
-  //  $scope.imgPickerCtx.fileOrder = $scope.imgPickerCtx.fileOrder||[];
-  //  $scope.imgPickerCtx.fileOrder.length = 0;
-  //  for (var i = 0; i < $scope.imgPickerCtx.files.length; i++) {
-  //    var a = $scope.imgPickerCtx.files[i].name;
-  //    $scope.imgPickerCtx.fileOrder.push({id: i, title: a})
-  //  }
-  //  //$log.warn('$scope.imgPickerCtx.files',$scope.imgPickerCtx.files);
-  //});
 })();
