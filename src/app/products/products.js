@@ -36,9 +36,10 @@
                 templateUrl: function ($stateParams) {
                   return 'app/products/tmpl' + $stateParams.tmplId + '.html';
                 },
-                controllerProvider: function ($stateParams) {
-                  return 'productsType' + "Controller";//+ $stateParams.tmplId ,如果需要多个控制器,那么引入注释部分
-                }
+                controller:'ProductsOfCategoryController'
+                //controllerProvider: function ($stateParams) {
+                //  return 'ProductsOfCategoryController';//+ $stateParams.tmplId ,如果需要多个控制器,那么引入注释部分
+                //}
               }
             }
           })
