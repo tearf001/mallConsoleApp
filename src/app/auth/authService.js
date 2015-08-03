@@ -1,11 +1,11 @@
 ﻿(function(app){
   'use strict';
   app.factory('authService',
-    ['$http', '$q', '$localStorage', 'ngAuthSettings','environment',
-      function ($http, $q, $localStorage, ngAuthSettings,environment) {
+    ['$http', '$log', '$q', '$window', '$localStorage', 'ngAuthSettings','environment',
+      function ($http, $log, $q, $window, $localStorage, ngAuthSettings,environment) {
         var serviceBase = ngAuthSettings.apiServiceBaseUri;
         var authServiceFactory = {};
-
+        var liveBefore = new Date(new Date().getTime()+ 3600*1000);
         var _authentication = {
           isAuth: false,
           userName: "",
@@ -32,7 +32,8 @@
               token: response.access_token,
               userName: loginData.userName,
               refreshToken: "",
-              useRefreshTokens: false
+              useRefreshTokens: false,
+              liveBefore:liveBefore
             };
           });
         };
@@ -45,23 +46,26 @@
           }
 
           var deferred = $q.defer();
-          //console.log(data);
+          //$log.info(data);
           $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
             .success(function (response) {
               if (loginData.useRefreshTokens) {
-                $localStorage['authorizationData'] = {
+                $localStorage.authorizationData = {
                   token: response.access_token,
                   userName: loginData.userName,
                   refreshToken: response.refresh_token,
-                  useRefreshTokens: true
+                  useRefreshTokens: true,
+                  liveBefore:liveBefore
                 };
               }
               else {
-                $localStorage['authorizationData']= {
+                $localStorage.authorizationData= {
                   token: response.access_token,
                   userName: loginData.userName,
                   refreshToken: "",
-                  useRefreshTokens: false
+                  useRefreshTokens: false,
+                  liveBefore:liveBefore
+
                 };
               }
               _authentication.isAuth = true;
@@ -70,7 +74,7 @@
 
               deferred.resolve(response);
 
-            }).error(function (err, status) {
+            }).error(function (err) {
               _logOut();
               deferred.reject(err);
             });
@@ -80,7 +84,7 @@
         };
         var _changePassword = function (userName, oldpass, newpass) {
 
-          console.log('arguments', arguments)
+          $log.info('arguments', arguments);
           var data = {
             'UserName': userName,
             'OldPassword': oldpass,
@@ -90,16 +94,16 @@
           return $http.post(serviceBase + 'api/account/ChangePassword', data).then(function (response) {
             return response;
           }, function (ex) {
-            alert('有错误发生!' + ex);
-            console.log('error', ex);
+            $window.alert('有错误发生!' + ex);
+            $log.info('error', ex);
             return ex;
-          })
+          });
 
         };
         var _logOut = function () {
 
-          delete $localStorage['authorizationData'];
-          console.log('you call logout!')
+          delete $localStorage.authorizationData;
+          $log.info('you call logout!');
           _authentication.isAuth = false;
           _authentication.userName = "";
           _authentication.useRefreshTokens = false;
@@ -108,8 +112,8 @@
 
         var _fillAuthData = function () {
 
-          var authData = $localStorage['authorizationData'];
-          if (authData) {
+          var authData = $localStorage.authorizationData;
+          if (authData && authData.liveBefore>new Date()) {
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;
             _authentication.useRefreshTokens = authData.useRefreshTokens;
@@ -120,7 +124,7 @@
         var _refreshToken = function () {
           var deferred = $q.defer();
 
-          var authData = $localStorage['authorizationData'];
+          var authData = $localStorage.authorizationData;
 
           if (authData) {
 
@@ -128,11 +132,11 @@
 
               var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken + "&client_id=" + ngAuthSettings.clientId;
 
-              delete $localStorage['authorizationData'];
+              delete $localStorage.authorizationData;
 
               $http.post(serviceBase + 'token', data, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function (response) {
 
-                $localStorage['authorizationData'] = {
+                $localStorage.authorizationData = {
                   token: response.access_token,
                   userName: response.userName,
                   refreshToken: response.refresh_token,
@@ -140,7 +144,7 @@
                 };
                 deferred.resolve(response);
 
-              }).error(function (err, status) {
+              }).error(function (err) {
                 _logOut();
                 deferred.reject(err);
               });
@@ -311,4 +315,4 @@
 //      };
 //  });
 
-})(app || angular.module('mallConsoleApp') );
+})(angular.module('mallConsoleApp') );

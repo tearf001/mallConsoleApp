@@ -6,7 +6,7 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider, toastr,ckeditor) {
+  function config($logProvider, toastr,CKEDITOR) {
     // Enable log
     $logProvider.debugEnabled(true);
 
@@ -15,7 +15,7 @@
     toastr.options.positionClass = 'toast-top-right';
     toastr.options.preventDuplicates = true;
     toastr.options.progressBar = true;
-    ckeditor.config.toolbarGroups = [
+    CKEDITOR.config.toolbarGroups = [
       { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
       { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
       { name: 'links', groups: [ 'links' ] },

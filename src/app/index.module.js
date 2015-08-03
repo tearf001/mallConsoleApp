@@ -11,13 +11,13 @@ var app;
   function environ() {
     var ctx={};
     ctx.isTest = function () {
-      return app_environment == environmentEnum.test;
+      return app_environment === environmentEnum.test;
     };
     ctx.isProduct = function () {
-      return app_environment == environmentEnum.product;
+      return app_environment === environmentEnum.product;
     };
     ctx.isDevelop = function () {
-      return app_environment == environmentEnum.develop;
+      return app_environment === environmentEnum.develop;
     };
     return ctx;
   }
@@ -34,7 +34,7 @@ var app;
     .module('mallConsoleApp', ['ngAnimate', 'ngTouch', 'ngSanitize', //官方模块
       'restangular', 'ui.router',  'ngStorage', //第三方 数据,逻辑模块
       'ui.bootstrap', 'ngFileUpload', 'ui.tree', //第三方 控件,ui工具类
-      'ui.tinymce','ckeditor', //多文本编辑器 ckeditor,ng.ckeditor
+      'ckeditor', //多文本编辑器 ckeditor,ng.ckeditor
       'ui.sortable',  //第三方:小模块
       'ui.router.history'  //本地模块
     ]);
@@ -91,7 +91,7 @@ var app;
   function extended_modules_for_app() {
     angular.module("ui.router.history", [
       "ui.router"
-    ]).service("$history", function ($state, $rootScope, $window) {
+    ]).service("$history", function ($state) {
 
       var history = [];
 

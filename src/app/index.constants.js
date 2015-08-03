@@ -1,4 +1,4 @@
-/* global malarkey:false, toastr:false, moment:false */
+/* global malarkey:false, toastr:false, moment:false, CKEDITOR:false */
 (function() {
   'use strict';
 
@@ -7,6 +7,6 @@
     .constant('malarkey', malarkey)
     .constant('toastr', toastr)
     .constant('moment', moment)
-    .constant('ckeditor',CKEDITOR)
+    .constant('CKEDITOR',CKEDITOR)
   ;
 })();

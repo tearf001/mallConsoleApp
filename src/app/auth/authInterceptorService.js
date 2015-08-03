@@ -10,12 +10,12 @@
           //console.log('-----**----',config);
           config.headers = config.headers || {};
 
-          var authData = $localStorage['authorizationData'];
+          var authData = $localStorage.authorizationData;
           if (authData) {
             config.headers.Authorization = 'Bearer ' + authData.token;
           }
           return config;
-        }
+        };
         //异常处理
         var _responseError = function (rejection) {
           //无权访问
@@ -24,11 +24,11 @@
             $location.path('/account/login');
           }
           return $q.reject(rejection);
-        }
+        };
 
         authInterceptorServiceFactory.request = _request;
         authInterceptorServiceFactory.responseError = _responseError;
 
         return authInterceptorServiceFactory;
       }]);
-})(app || angular.module('mallConsoleApp') );
+})(angular.module('mallConsoleApp'));
