@@ -51,12 +51,12 @@ angular.module('mallConsoleApp')
       ///////////////////多文本编辑器配置////////////////////////////
       ckeditorConfig: function (defaultConfig) {
         var config = {};
-        if (defaultConfig) return config; //all - default config
+        if (!defaultConfig||defaultConfig=='default') return config; //all - default config
         function fn(config) {
           // Define changes to default configuration here. For example:
           // config.language = 'fr';
           // config.uiColor = '#AADC6E';Source
-          config.extraPlugins = 'smiley,codesnippet,image2';
+          //config.extraPlugins = 'smiley,codesnippet,image2';
           config.toolbar = [
             {
               name: 'document',
@@ -80,7 +80,6 @@ angular.module('mallConsoleApp')
             {name: 'tools', items: ['Maximize', 'ShowBlocks']},
             {name: 'about', items: ['About']}
           ];
-
           // Toolbar groups configuration.
           config.toolbarGroups = [
             {name: 'document', groups: ['mode', 'document', 'doctools']},
@@ -98,22 +97,6 @@ angular.module('mallConsoleApp')
             {name: 'tools'},
             {name: 'about'}
           ];
-          config.codeSnippet_languages = {
-            cpp: 'C++',
-            cs: 'C#',
-            css: 'CSS',
-            html: 'HTML',
-            http: 'HTTP',
-            java: 'Java',
-            javascript: 'JavaScript',
-            json: 'JSON',
-            objectivec: 'Objective-C',
-            perl: 'Perl',
-            python: 'Python',
-            sql: 'SQL',
-            vbscript: 'VBScript',
-            xml: 'XML'
-          };
           config.codeSnippet_theme = "default";
         }
 

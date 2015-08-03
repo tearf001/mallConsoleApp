@@ -34,7 +34,7 @@ var app;
     .module('mallConsoleApp', ['ngAnimate', 'ngTouch', 'ngSanitize', //官方模块
       'restangular', 'ui.router',  'ngStorage', //第三方 数据,逻辑模块
       'ui.bootstrap', 'ngFileUpload', 'ui.tree', //第三方 控件,ui工具类
-      'ui.tinymce','ckeditor', //多文本编辑器
+      'ui.tinymce','ckeditor', //多文本编辑器 ckeditor,ng.ckeditor
       'ui.sortable',  //第三方:小模块
       'ui.router.history'  //本地模块
     ]);
