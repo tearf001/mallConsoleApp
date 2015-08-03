@@ -1,7 +1,10 @@
 <!--单商品预览-->
 <div class="container">
+
   <div class="row" style="position: relative">
     <div style="position: absolute;top:12px;right: 6%;z-index:1000">
+      <img src="assets/images/waiting/waiting-pure-blue.gif" ng-show="StateDesc.mainProcessing" style="width: 100px"
+           alt="处理中"/>
       <button class="btn" ng-class="StateDesc[mainState][1]" ng-click="mainEdit()" ng-hide="mainState==1">
         {{StateDesc[mainState][0]}}
       </button>
@@ -66,35 +69,101 @@
             </div>
           </td>
         </tr>
+        <tr>
+          <td class="col-md-4" colspan="2">
+            <div class="form-group"><label>上线时间:</label>
+              <span ng-show="!mainState" ng-bind="productIns.onSaleTime|date:'yyyy-MM-dd HH:mm:ss'"></span>
+              <p class="input-group" ng-show="mainState">
+                <input ng-model="productIns.onSaleTime" type="date" class="form-control"
+                       datepicker-popup
+                       is-open="on_opened"
+                       min-date="minDate"
+                       max-date="'2020-06-22'"
+                       datepicker-options="yyyy-MM-dd" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="on_opened=true">
+                  <i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                <timepicker ng-model="productIns.onSaleTime"
+                            show-meridian="false" arrowkeys="false"
+                            show-spinners="false"
+                            ng-change="changed()"></timepicker>
+
+              </p>
+            </div>
+          </td>
+          <td class="col-md-4">
+            <div class="form-group"><label>咨询量:</label>
+              <span ng-show="!mainState" ng-bind="productIns.consultcnt"></span>
+              <input ng-show="mainState" ng-model="productIns.consultcnt"/>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-md-4" colspan="2" >
+            <div class="form-group"><label>下线时间:</label>
+              <span ng-show="!mainState" ng-bind="productIns.offSaleTime|date:'yyyy-MM-dd HH:mm:ss'"></span>
+              <p class="input-group" ng-show="mainState">
+                <input ng-model="productIns.onSaleTime" type="date" class="form-control"
+                       datepicker-popup
+                       is-open="off_opened"
+                       min-date="minDate"
+                       max-date="'2020-06-22'"
+                       datepicker-options="yyyy-MM-dd" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="off_opened=true">
+                  <i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                <timepicker ng-model="productIns.offSaleTime"
+                            show-meridian="false" arrowkeys="false"
+                            show-spinners="false"
+                            ng-change="changed()"></timepicker>
+              </p>
+            </div>
+          </td>
+
+        </tr>
       </table>
     </div>
   </div>
 
   <div class="row">
     <tabset>
-      <tab ng-repeat="tab in prodInfoTabs" active="tab.active__">
+      <tab active="true">
         <tab-heading>
           <span>产品参数</span>
-          <button class="btn-link glyphicon glyphicon-edit" ng-click="edit(1)"></button>
+          <img src="assets/images/waiting/waiting-pure-blue.gif" ng-show="StateDesc.infoProcessing" alt="处理中"/>
+          <button class="btn-link" ng-class="StateDesc[infoState][1]" ng-click="infoEdit()" ng-hide="infoState==1"
+                  title="{{StateDesc[infoState][0]}}">
+          </button>
+          <button class="btn-link glyphicon glyphicon-remove" ng-click="infoCancel()" ng-show="infoState"
+                  title="取消"></button>
         </tab-heading>
         <div>
           <table class="table table-stripped">
             <tr>
               <td class="col-md-4">
-                <div class="form-group"><label>主要规格:</label><h6 ng-bind="tab.productInfo"></h6></div>
+                <div class="form-group"><label>主要规格:</label><h6 ng-bind="productInfo.productInfo"></h6></div>
               </td>
               <td class="col-md-4">
-                <div class="form-group"><label>产品描述:</label><h6 class="mute" ng-bind="tab.productDescription"></h6>
+                <div class="form-group"><label>产品描述:</label><h6 class="mute" ng-bind="productInfo.productDescription"></h6>
                 </div>
               </td>
             </tr>
           </table>
           <div class="col-md-12">
-            <p ng-bind-html="tab.productDetails"></p>
+            <p ng-show="!infoState" ng-bind-html="productInfo.productDetails" ready=""></p>
+            <div ng-show="infoState" style="position: relative">
+              <div ckeditor="ckeditorOptions" ng-model="productInfo.productDetails"></div>
+              <div>
+                <button class="btn btn-success" style="position:absolute;top:0;right:0;width: 100px"
+                        ng-click="openImgPicker()">上传图片
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </tab>
     </tabset>
   </div>
-  <ui-view>多文本编辑区</ui-view>
 </div>

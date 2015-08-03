@@ -88,13 +88,26 @@ ul.nav.nav-list>li.active {
 }
 
 label{
-  width: 60px;
+  width: 70px;
 }
 label ~ span,label ~ input{
   padding-left: 15px;
   color:darken(@nav-list-bgc-color,20);
   text-decoration: underline;
 }
+
+label ~ input{
+  max-width: 150px;
+}
+
+/*.time-picker-ctn{
+  *{padding-left: 0;padding-right: 0}
+  display: table;
+  &>input {max-width:150px}
+  td input{
+    max-width: 30px;
+  }
+}*/
 
 
 /**

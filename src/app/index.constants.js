@@ -6,5 +6,7 @@
     .module('mallConsoleApp')
     .constant('malarkey', malarkey)
     .constant('toastr', toastr)
-    .constant('moment', moment);
+    .constant('moment', moment)
+    .constant('ckeditor',CKEDITOR)
+  ;
 })();
