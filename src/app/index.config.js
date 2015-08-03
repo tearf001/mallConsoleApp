@@ -6,7 +6,7 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider, toastr, environment, ckeditor, RestangularProvider) {
+  function config($logProvider, toastr, environment, CKEDITOR, RestangularProvider) {
     // Enable log
     $logProvider.debugEnabled(true);
 
@@ -16,8 +16,7 @@
     toastr.options.preventDuplicates = true;
     toastr.options.progressBar = true;
     RestangularProvider.setBaseUrl(environment.apiBaseUrl);
-
-    ckeditor.config.toolbarGroups = [
+    CKEDITOR.config.toolbarGroups = [
       { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
       { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
       { name: 'links', groups: [ 'links' ] },

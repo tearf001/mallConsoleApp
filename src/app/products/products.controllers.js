@@ -8,12 +8,12 @@
     .controller('ProductsOfCategoryController',
     ['$scope', '$state', '$stateParams', '$timeout', 'tmplProducts',
       function ($scope, $state, $stateParams, $timeout, tmplProducts) {
-        console.log('--tmplProducts@productsTypeController:', tmplProducts);
+        //console.log('--tmplProducts@productsTypeController:', tmplProducts);
         $scope.products = tmplProducts;
       }])
     .controller('SingleProductManageController',
-    ['$q', '$timeout', '$scope', '$stateParams', '$state', 'utils', '$log', 'toastr', '$history', '$modal', 'Upload', 'tmplProducts', 'productInfo',
-      function ($q, $timeout, $scope, $stateParams, $state, utils, $log, toastr, $history, $modal, Upload, tmplProducts, productInfo) {
+    ['$q', '$timeout', '$scope', '$stateParams', '$state', 'utils', '$log', 'toastr','CKEDITOR', '$history', '$modal', 'Upload', 'tmplProducts', 'productInfo',
+      function ($q, $timeout, $scope, $stateParams, $state, utils, $log, toastr,CKEDITOR, $history, $modal, Upload, tmplProducts, productInfo) {
         //从数据库中加载,或者从客户端缓冲中加载
         var productIns = utils.findById(tmplProducts, $stateParams.prodId, 'productID');//从客户端缓冲中取数
         productIns.onSaleTime = new Date(productIns.onSaleTime);
@@ -31,16 +31,15 @@
           $history.back();
         };
         $scope.$watch(function (scope) {
-            return {productIns: scope.productIns, productInfo: scope.productInfo}
+          return {productIns: scope.productIns, productInfo: scope.productInfo};
+        }, function (newValue, oldValue) {
+          if ($scope.mainState === 1 && newValue.productIns !==oldValue.productIns) {
+            $scope.mainState = 2;
           }
-          ,function (newValue, oldValue) {
-            if ($scope.mainState == 1 && newValue.productIns != oldValue.productIns) {
-              $scope.mainState = 2;
-            }
-            if ($scope.infoState == 1 && newValue.productInfo != oldValue.productInfo) {
-              $scope.infoState = 2;
-            }
-          }, true);
+          if ($scope.infoState === 1 && newValue.productInfo !== oldValue.productInfo) {
+            $scope.infoState = 2;
+          }
+        }, true);
         $scope.mainState = 0;
         $scope.infoState = 0;
         $scope.StateDesc = {
@@ -58,10 +57,10 @@
         };
         ///////开启编辑,状态维护,保存////////
         $scope.mainEdit = function () {
-          if ($scope.mainState == 2) { //数据有变化
+          if ($scope.mainState === 2) { //数据有变化
             $scope.StateDesc.mainProcessing = true;
             $timeout(function () {
-              $q.when(productIns).then(function (data) {
+              $q.when(productIns).then(function () {
                 //$scope.singleProduct.extend(data);
                 $scope.mainState = 0;//更新数据
               }, function (err) {
@@ -75,10 +74,10 @@
           $scope.mainState = ($scope.mainState + 1) % 2;
         };
         $scope.infoEdit = function () {
-          if ($scope.infoState == 2) { //数据有变化
+          if ($scope.infoState === 2) { //数据有变化
             $scope.StateDesc.infoProcessing = true;
             $timeout(function () {
-              $q.when(productIns).then(function (data) {
+              $q.when(productIns).then(function () {
                 //$scope.singleProduct.extend(data);
                 $scope.infoState = 0;//更新数据
               }, function (err) {
@@ -91,9 +90,9 @@
           $scope.infoState = ($scope.infoState + 1) % 2;
         };
         $scope.bluringRichTextEditor = function () {
-          alert(0);
-          alert(CKEDITOR.instances.ckeditor1.getData())
-        }
+          //alert(0);
+          //alert(CKEDITOR.instances.ckeditor1.getData());
+        };
         //////////////////////////////////////
         //$scope.ckeditorOptions = utils.ckeditorConfig(CKEDITOR.config);
         $scope.pickBack = undefined;
@@ -113,7 +112,7 @@
             $scope.pickBack = pickBack;
             $log.info('Modal return with: ', pickBack);
             var oEditor = CKEDITOR.instances.editor1;
-            _.forEach(pickBack, function (ins) {
+            angular.forEach(pickBack, function (ins) {
               //tinymce.activeEditor.execCommand('mceInsertContent', false, i);
               var newElement = CKEDITOR.dom.element.createFromHtml(ins, oEditor.document);
               oEditor.insertElement(newElement);
@@ -123,7 +122,7 @@
           }, function (e) {
             $log.info('Modal dismissed at: ', e);
           });
-        }
-      }])
+        };
+      }]);
 })();
 

@@ -19,7 +19,7 @@
         authService.saveRegistration($scope.registration).then(function (response) {
 
             $scope.savedSuccessfully = true;
-            $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
+            $scope.message = "注册成功！页面将会在2秒内跳转至登录页"+response;
             startTimer();
 
           },
@@ -39,7 +39,7 @@
           $timeout.cancel(timer);
           $location.path('/login');
         }, 2000);
-      }
+      };
 
     }]);
 })();

@@ -31,7 +31,7 @@
           var ratingCtrl = ctrls[1], ngModelCtrl = ctrls[0];
           ratingCtrl.init(ngModelCtrl);
         }
-      }
+      };
 
     }).controller('ratingCtrl',
     ['$scope', '$attrs', 'ratingConfig',
@@ -41,8 +41,8 @@
           $setViewValue: angular.noop //空函数
         };
         self.render = function () {
-          return $scope.value = ngModelCtrl.$viewValue;
-        }
+          return ($scope.value = ngModelCtrl.$viewValue);
+        };
         self.init = function (ngModelCtrl_) {
           //ngModel的配置,初始化
           ngModelCtrl = ngModelCtrl_;
@@ -53,27 +53,27 @@
           self.stateOff = $attrs.stateOff || ratingConfig.stateOff;
           var ratingStates = new Array(angular.isDefined($attrs.max) ? $scope.$parent.$eval($attrs.max) : ratingConfig.max);
           $scope.range = this.buildTemplateObjects(ratingStates);
-        }
+        };
         self.buildTemplateObjects = function (states) {
           for (var i = 0; i < states.length; i++) {
             states[i] = angular.extend({index: i}, {stateOn: self.stateOn, stateOff: self.stateOff}, states[i]);
           }
           return states;
-        }
+        };
         $scope.rate = function (value) {
           if (!$scope.readOnly && value >= 0 && value <= $scope.range.length) {
             ngModelCtrl.$setViewValue(value);
             ngModelCtrl.$render();
           }
-        }
+        };
         $scope.enter = function (value) {
-          if (!$scope.readOnly) $scope.value = value;
+          if (!$scope.readOnly) {$scope.value = value;}
           $scope.onHover({value: value});
         };
         $scope.reset = function () {
           $scope.value = ngModelCtrl.$viewValue;
           $scope.onLeave();
-        }
+        };
         //对上下左右的控制 ---放弃
-      }])
+      }]);
 })();

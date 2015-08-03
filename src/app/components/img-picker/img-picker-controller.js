@@ -27,31 +27,38 @@
         }
       };
       $scope.servedImages = _.map(["<img src='assets/images/karma.png' style='width:200px'/>"], function (item) {
-        return {eurl:item,rurl:item};
+        return {eurl: item, rurl: item};
       });
       $scope.makeUp = function (success, data) {
-        if (success)
+        if (success) {
           $scope.uploadResult = data;
           //todo 转换成url图片标签
-        else
+        } else {
           $scope.uploadResult = _.map(data, function (item) {
             var html = "<img src='assets/images/" + item.name + "' style='width:100px'/>";//测试多文本时用
-            return { eurl:$sce.trustAsHtml(html),rurl:html };
+            return {eurl: $sce.trustAsHtml(html), rurl: html};
           });
+        }
         //$scope.servedImages = $scope.uploadResult.concat($scope.servedImages);
         $scope.imgPickerCtx.files.length = 0;
         $scope.tabs[0].active = true;
-      }
+      };
       $scope.insertSelected = function () {
-        var r =[];
-        if($scope.uploadResult && $scope.uploadResult.length)
-          _.forEach($scope.uploadResult, function (file) {
-            if (file.selected) r.push(file.rurl);
+        var r = [];
+        if ($scope.uploadResult && $scope.uploadResult.length) {
+          angular.forEach($scope.uploadResult, function (file) {
+            if (file.selected) {
+              r.push(file.rurl);
+            }
           });
-        if($scope.servedImages && $scope.servedImages.length)
-          _.forEach($scope.servedImages, function (file) {
-            if (file.selected) r.push(file.rurl);
+        }
+        if ($scope.servedImages && $scope.servedImages.length) {
+          angular.forEach($scope.servedImages, function (file) {
+            if (file.selected) {
+              r.push(file.rurl);
+            }
           });
+        }
         $modalInstance.close(r);
       };
 

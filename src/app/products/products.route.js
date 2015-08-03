@@ -55,7 +55,7 @@
               }
             },
             controller:'SingleProductManageController'
-          })
+          });
       }
     ]
   );
