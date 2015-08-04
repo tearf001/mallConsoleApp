@@ -1,0 +1,13 @@
+
+{
+  "data":
+  [
+    {"id":1,"name":"我喜","items":[{"id":1,"type":"lover", "name":"Jane"},{"id":2,"type":"classmate", "name":"Janie"}]},
+    {"id":2,"name":"我想","items":[{"type":"lover", "name":"Peter"}]},
+    {"id":3,"name":"倭奴","items":[{"type":"lover", "name":"Seek"}]},
+    {"id":4,"name":"呵呵","items":[{"type":"lover", "name":"Peek"}]},
+    {"id":5,"name":"好消息","items":[{"type":"lover", "name":"Jones"}]}
+  ]
+
+
+}

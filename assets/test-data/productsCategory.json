@@ -1,0 +1,14 @@
+{
+  "data":
+  [
+    {
+      "subCategoryID": 5,
+      "subCategoryName": "实物类"
+
+    },
+    {
+      "subCategoryID": 3,
+      "subCategoryName": "虚拟类"
+    }
+  ]
+}
