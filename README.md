@@ -43,7 +43,7 @@
  <code>        "ckeditor": "~4.5.1",</code>
 
  那么在构建的过程中，选择前端依赖js组件时，就会排除掉ckeditor的主文件(同时构建速度大量提高)<br>
- 最终生成在<code>dist\scripts的<code>vendor-{version}.js</code>（缺乏ckeditor).<br>
+ 最终生成在<code>dist\scripts</code>的<code>vendor-{version}.js</code>（缺乏ckeditor).<br>
  
  我们在发布项目时，把ckeditor整个文件夹（来源于bower_components，或者官网下载），放入脚本目录中，<br>
  然后在<code>index.html</code>中引入<code>ckeditor.js</code>
