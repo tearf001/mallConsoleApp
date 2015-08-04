@@ -2,6 +2,7 @@
  * Created by Administrator on 2015/7/3.
  */
 (function() {
+    "use strict";
     angular.module('ionic.rating', []).constant('ratingConfig', {
         max: 5,
         stateOn: null,
@@ -19,7 +20,7 @@
             this.stateOff = angular.isDefined($attrs.stateOff) ? $scope.$parent.$eval($attrs.stateOff) : ratingConfig.stateOff;
             max = angular.isDefined($attrs.max) ? $scope.$parent.$eval($attrs.max) : ratingConfig.max;
             ratingStates = angular.isDefined($attrs.ratingStates) ? $scope.$parent.$eval($attrs.ratingStates) : new Array(max);
-            return $scope.range = this.buildTemplateObjects(ratingStates);
+            return ($scope.range = this.buildTemplateObjects(ratingStates));
         };
         this.buildTemplateObjects = function(states) {
             var i, j, len, ref;
@@ -63,7 +64,7 @@
             }
         };
         this.render = function() {
-            return $scope.value = ngModelCtrl.$viewValue;
+            return ($scope.value = ngModelCtrl.$viewValue);
         };
         return this;
     }).directive('rating', function() {

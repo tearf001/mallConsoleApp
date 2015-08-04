@@ -35,3 +35,23 @@
   }
 }
 </code></pre>
+
+<pre>
+切记：因为<code>generator-gulp-angular(v12.1)</code>在编译/构建（build）的过程中，
+对ckeditor编入不支持。
+因此在编译时，移除根目录下的<code>bower.json</code>配置
+ <code>dependencies\ckeditor {version}</code>
+ <code>        "ckeditor": "~4.5.1",<code>
+
+ 那么在构建的过程中，选择前端依赖js组件时，就会排除掉ckeditor的主文件(同时构建速度大量提高)
+ 最终生成在<code>dist\scripts的<code>vendor-{version}.js</code>（缺乏ckeditor).
+ 
+ 我们在发布项目时，把ckeditor整个文件夹（来源于bower_components，或者官网下载），放入脚本目录中，
+ 然后在<code>index.html</code>中引入<code>ckeditor.js</code>
+ 其引入的位置，应在<code>vendor-{version}.js</code>之后，app-{version}之前。
+ 
+ 同样的问题也适合,<code>bootstrap\fonts</code>，支援的也不是很好,
+ 可以参考 <a href='https://github.com/Swiip/generator-gulp-angular/issues/266'>bootstrap font not found #266</a>
+ 需要修改<code>gulp/build.js</code>或者拷贝<code>fonts</code>目录至<code>dist</code>根目录下 
+ 
+</pre>
