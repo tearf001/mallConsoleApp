@@ -154,7 +154,7 @@
           <div class="col-md-12">
             <p ng-show="!infoState" ng-bind-html="productInfo.productDetails" ready=""></p>
             <div ng-show="infoState" style="position: relative">
-              <div ckeditor="ckeditorOptions" ng-model="productInfo.productDetails"></div>
+              <div ckeditor ng-model="productInfo.productDetails"></div>
               <div>
                 <button class="btn btn-success" style="position:absolute;top:0;right:0;width: 100px"
                         ng-click="openImgPicker()">上传图片

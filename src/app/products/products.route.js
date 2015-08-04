@@ -28,7 +28,7 @@
             resolve:{
               //每次进入前重新加载
               tmplProducts: function (utils,productsService,$stateParams) {
-                console.log('riririri',productsService.getProductsByCategoryId($stateParams.tmplId));
+                //console.log('riririri',productsService.getProductsByCategoryId($stateParams.tmplId));
                 return productsService.getProductsByCategoryId($stateParams.tmplId);
               }
             },
@@ -50,13 +50,13 @@
             resolve:{
               productInfo: function (productsService,$stateParams) {
                 return productsService.getInfo($stateParams.prodId).then(function (data) {
-                  console.log('!!!!',data);
+                  //console.log('!!!!',data);
                   return data;
                 });
               }
             },
             controller:'SingleProductManageController'
-          })
+          });
       }
     ]
   );

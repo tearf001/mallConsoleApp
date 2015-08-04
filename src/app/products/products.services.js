@@ -28,7 +28,7 @@
         return productsPromise.then(function (data) {
           if (id===undefined) {return data;}
           return data.filter(function (it) {
-            return it.subCategoryId === id;
+            return String(it.subCategoryId) === String(id);
           });
         });
       };

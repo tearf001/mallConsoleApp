@@ -7,7 +7,7 @@
         findById: function findById(a, id, key) {
           for (var i = 0; i < a.length; i++) {
             //$log.debug('com---',a[i][key||'id'],id);
-            if (a[i][key || 'id'] === id) {
+            if (String(a[i][key || 'id']) === String(id)) {
               return a[i];
             }
           }
