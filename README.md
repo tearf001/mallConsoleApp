@@ -47,7 +47,7 @@
  
  我们在发布项目时，把ckeditor整个文件夹（来源于bower_components，或者官网下载），放入脚本目录中，<br>
  然后在<code>index.html</code>中引入<code>ckeditor.js</code>
- 其引入的位置，应在<code>vendor-{version}.js</code>之后，app-{version}之前。<br>
+ 其引入的位置，应在<code>vendor-{version}.js</code>之后，<code>app-{version}.js</code>之前。<br>
  
  同样的问题也适合,<code>bootstrap\fonts</code>，支援的也不是很好,<br>
  可以参考 <a href='https://github.com/Swiip/generator-gulp-angular/issues/266'>bootstrap font not found #266</a>
