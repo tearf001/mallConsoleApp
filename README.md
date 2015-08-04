@@ -40,7 +40,7 @@
 对ckeditor编入不支持。<br>
 因此在编译时，移除根目录下的<code>bower.json</code>配置<br>
  <code>dependencies\ckeditor {version}</code>
- <code>        "ckeditor": "~4.5.1",<code>
+ <code>        "ckeditor": "~4.5.1",</code>
 
  那么在构建的过程中，选择前端依赖js组件时，就会排除掉ckeditor的主文件(同时构建速度大量提高)<br>
  最终生成在<code>dist\scripts的<code>vendor-{version}.js</code>（缺乏ckeditor).<br>
