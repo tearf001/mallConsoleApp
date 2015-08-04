@@ -12,10 +12,8 @@
 
       var promiseFn = function (path) {
           return $http.get(path, heads).then(function (resp) {
-          console.log('--static--',path,'---', resp.data.data);
           return resp.data.data;
         }, function (error) {
-          console.log(error);
           return error;
         });
       };
@@ -28,26 +26,26 @@
 
       factory.getProductsByCategoryId = function (id) {
         return productsPromise.then(function (data) {
-          if (id===undefined) return data;
+          if (id===undefined) {return data;}
           return data.filter(function (it) {
-            return it.subCategoryId == id;
+            return it.subCategoryId === id;
           });
-        })
+        });
       };
       factory.getCategories = function () {
         return CategoriesPromise.then(function (data) {
           return data;
-        })
+        });
       };
       factory.get = function (id) {
         return productsPromise.then(function (data) {
           return utils.findById(data, id, 'productID');
-        })
+        });
       };
       factory.getInfo = function (id) {
         return productsInfoPromise.then(function (data) {
           return utils.findById(data, id, 'productID');
-        })
+        });
       };
       return factory;
     }]);

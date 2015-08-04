@@ -10,10 +10,8 @@
       var heads = {header: {'Content-Type': 'application/json; charset=utf-8'}};
       //promise;
       var orders = $http.get(path, heads).then(function (resp) {
-        console.log(resp.data.data);
         return resp.data.data;
       }, function (error) {
-        console.log(error);
         return error;
       });
 
@@ -24,7 +22,7 @@
       factory.get = function (id) {
         return orders.then(function () {
           return utils.findById(orders, id);
-        })
+        });
       };
       return factory;
     }]);

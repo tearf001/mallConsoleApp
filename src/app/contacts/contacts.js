@@ -1,8 +1,8 @@
 (function () {
   'use strict';
   angular.module('mallConsoleApp').config(
-    ['$stateProvider', '$urlRouterProvider',
-      function ($stateProvider, $urlRouterProvider) {
+    ['$stateProvider',
+      function ($stateProvider) {
         $stateProvider
           //////////////
           // Contacts //
@@ -28,8 +28,8 @@
                 }]
             },
             // You can pair a controller to your template. There *must* be a template to pair with.
-            controller: ['$scope', '$state', 'contacts', 'utils',
-              function ($scope, $state, contacts, utils) {
+            controller: ['$scope', '$state', 'contacts',
+              function ($scope, $state, contacts) {
 
                 // Add a 'contacts' field in this abstract parent's scope, so that all
                 // child state views can access it in their scopes. Please note: scope

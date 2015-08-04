@@ -4,8 +4,8 @@
 (function(){
     'use strict';
   angular.module('mallConsoleApp').config(
-    ['$stateProvider', '$urlRouterProvider',
-      function ($stateProvider, $urlRouterProvider) {
+    ['$stateProvider',
+      function ($stateProvider) {
         $stateProvider
           .state('comments', {
             url: '/comments',
