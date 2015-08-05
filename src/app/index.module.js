@@ -91,7 +91,7 @@ var app;
   function extended_modules_for_app() {
     angular.module("ui.router.history", [
       "ui.router"
-    ]).service("$history", function ($state) {
+    ]).service("$history", function ($state, $rootScope, $window) {
 
       var history = [];
 

@@ -5,6 +5,12 @@
   "scripts": {
     "test": "gulp test"
   },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/tearf001/"
+    }
+  ],
   "devDependencies": {
     "browser-sync": "~2.7.12",
     "browser-sync-spa": "~1.0.2",

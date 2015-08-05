@@ -26,7 +26,7 @@
           }
         }
       };
-      $scope.servedImages = angular.map(["<img src='assets/images/karma.png' style='width:200px'/>"], function (item) {
+      $scope.servedImages = _.map(["<img src='assets/images/karma.png' style='width:200px'/>"], function (item) {
         return {eurl: item, rurl: item};
       });
       $scope.makeUp = function (success, data) {
@@ -34,7 +34,7 @@
           $scope.uploadResult = data;
           //todo 转换成url图片标签
         } else {
-          $scope.uploadResult = angular.map(data, function (item) {
+          $scope.uploadResult = _.map(data, function (item) {
             var html = "<img src='assets/images/" + item.name + "' style='width:100px'/>";//测试多文本时用
             return {eurl: $sce.trustAsHtml(html), rurl: html};
           });

@@ -1,9 +1,6 @@
 /**
  * Created by wongxinhai on 15/8/2.
  */
-/**
- * Created by wongxinhai on 15/8/2.
- */
 (function(){
   'use strict';
   angular.module('mallConsoleApp')
